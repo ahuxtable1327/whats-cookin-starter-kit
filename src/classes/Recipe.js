@@ -1,23 +1,26 @@
+import {ingredientsData} from '../data/ingredients';
+import Ingredient from '../classes/Ingredient.js';
+
 class Recipe {
-  constructor(id, img, ingredients, inst, name, tags) {
-    this.id = id;
-    this.image = img;
-    this.ingredients = ingredients;
-    this.instructions = inst;
-    this.name = name;
-    this.tags = tags;
+  constructor(recipe) {
+    this.id = recipe.id;
+    this.image = recipe.image;
+    this.ingredients = recipe.ingredients;
+    this.instructions = recipe.instructions;
+    this.name = recipe.name;
+    this.tags = recipe.tags;
   }
 
   listIngredients() {
-    const list = this.ingredients.map(ing => {
-      return ing.name;
+    let list = this.ingredients.map(ingredient => {
+      return ingredient.name;
     });
     return list;
   }
 
   calculateRecipeCost() {
-    this.ingredients.reduce((acc, cur) => {
-     acc += cur.amount * //data ref.cost
+    let total = this.ingredients.reduce((total, curValue) => {
+      return total += curValue.quantity.amount * curValue.costInCents;
     }, 0);
   }
 
