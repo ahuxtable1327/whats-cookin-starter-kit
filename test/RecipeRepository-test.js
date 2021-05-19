@@ -41,20 +41,20 @@ describe('RecipeRepository', () => {
       repository = new RecipeRepository(recipe);
   });
 
-  it('should be a function', () => {
+  it.skip('should be a function', () => {
     expect(RecipeRepository).to.be.a('function');
   });
 
-  it('should be an instance of RecipeRepository', () => {
+  it.skip('should be an instance of RecipeRepository', () => {
     expect(repository).to.be.an.instanceof(RecipeRepository);
   });
 
-  it('should be able to take recipes', () => {
-    expect(repository.recipes).to.equal(recipe);
+  it.skip('should be able to take in a recipe', () => {
+    expect(repository.recipe).to.equal(recipe);
   });
 
-  it('should return a filtered list based on recipe tags', () => {
-    let recipeList = repository.filterByTag('starter');
+  it.skip('should return a filtered list based on recipe tags', () => {
+    let recipeList = recipe.filterByTag('starter');
     expect(recipeList.length).to.equal(1);
   });
 
