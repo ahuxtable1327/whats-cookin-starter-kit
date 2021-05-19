@@ -9,14 +9,15 @@ class Recipe {
   }
 
   listIngredients() {
-    this.ingredients.map(ingredient => {
-      return ingredient.name;
+    const list = this.ingredients.map(ing => {
+      return ing.name;
     });
+    return list;
   }
 
   calculateRecipeCost() {
     this.ingredients.reduce((acc, cur) => {
-  //    acc += amount times costInCents.....
+     acc += cur.amount * //data ref.cost
     }, 0);
   }
 

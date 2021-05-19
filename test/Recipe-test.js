@@ -1,6 +1,6 @@
 import { expect } from 'chai';
+import Ingredient from '../src/classes/Ingredient';
 import Recipe from '../src/classes/Recipe';
-// import Ingredient from '..src/classes/Ingredient';
 
 describe('Recipe', () => {
   let newRecipe;
@@ -84,7 +84,7 @@ describe('Recipe', () => {
     expect(newRecipe.tags[2]).to.equal('snack');
   });
 
-  it.skip('Should determine the names of ingredients needed', () => {
+  it('Should determine the names of ingredients needed', () => {
     expect(newRecipe.listIngredients()).to.equal(['wheat flour, bicarbonate of soda, eggs']);
   });
 
