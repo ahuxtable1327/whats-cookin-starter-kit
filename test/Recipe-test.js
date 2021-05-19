@@ -3,7 +3,7 @@ import Recipe from '../src/classes/Recipe';
 
 describe('Recipe', () => {
 
-  beforEach(function() {
+  beforeEach(function() {
     let newIngredient;
     let newRecipe = new Recipe()
     newRecipe.id = 595736;
@@ -68,7 +68,7 @@ describe('Recipe', () => {
   });
 
   it.skip('Should store an image for the recipe', () => {
-    expect(newRecipe.image).to.be.a.('string');
+    expect(newRecipe.image).to.be.a('string');
     expect(newRecipe.image).to.equal('https://spoonacular.com/recipeImages/595736-556x370.jpg');
   });
 
