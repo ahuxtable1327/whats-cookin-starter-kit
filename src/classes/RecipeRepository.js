@@ -1,6 +1,8 @@
 class RecipeRepository {
-  constructor(recipes) {
+  constructor(recipes, ingredients) {
     this.recipes = recipes;
+    this.ingredients = ingredients;
+    // this.ingredientIds =[];
     this.recipeList =[];
 
     // this.filteredList =[];s
@@ -29,10 +31,20 @@ class RecipeRepository {
 
   }
   filterByIngredient(ingredient) {
-    
+    let ingredientObj = this.ingredients.find(ing => {
+      return ing.name === ingredient
+      });
+
+    this.recipes.filter(recipe => {
+      recipe.ingredients.forEach(ingred => {
+        if (ingred.id === ingredientObj.id){
+          this.recipeList.push(recipe)
+        }
+      });
+    });
+    return this.recipeList
   }
-  // filter/map iterate over ingredient array and only return id
-  // then filter through recipes.ingredients to return an array
+
 
   }
 

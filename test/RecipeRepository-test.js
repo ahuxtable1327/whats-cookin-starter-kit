@@ -2,12 +2,13 @@ import { expect } from 'chai';
 import RecipeRepository from '../src/classes/RecipeRepository';
 import Recipe from '../src/classes/Recipe'
 import testRecipes from './testRecipeData'
+import testIngredients from './testIngredientData'
 
 describe('RecipeRepository', () => {
   let repository
 
   beforeEach(() => {
-      repository = new RecipeRepository(testRecipes);
+      repository = new RecipeRepository(testRecipes, testIngredients);
   });
 
   it('should be a function', () => {
@@ -19,7 +20,6 @@ describe('RecipeRepository', () => {
   });
 
   it('should be able to take in a recipe', () => {
-    // expect(repository.recipes[0]).to.be
     expect(repository.recipes).to.deep.equal(testRecipes);
   });
 
@@ -33,8 +33,9 @@ describe('RecipeRepository', () => {
     expect(repository.recipeList.length).to.equal(1);
   });
 
-  it.skip('should return a filtered list based on ingredients', () => {
-    let recipeList = recipe.filterByIngredient('wheat flour');
-    expect(repository.recipeList.length).to.equal(1);
+  it('should return a filtered list based on ingredients', () => {
+    repository.filterByIngredient('wheat flour');
+    expect(repository.ingredients).to.deep.equal(testIngredients);
+    expect(repository.recipeList.length).to.equal(2);
   });
 })
