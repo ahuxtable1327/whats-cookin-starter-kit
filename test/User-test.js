@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import User from '../src/classes/User'
 import RecipeRepository from '../src/classes/RecipeRepository';
 import testRecipes from './testRecipeData'
+import testUsers from './testUserData'
 
 
 
@@ -10,7 +11,7 @@ describe('User', () => {
 
   beforeEach(() => {
     repository = new Repository(testRecipes);
-    user = new
+    user = new User();
   })
 
   it.skip('should be a function', () => {
