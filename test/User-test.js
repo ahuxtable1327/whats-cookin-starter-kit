@@ -14,4 +14,15 @@ describe('User', () => {
     expect(user).to.be.an.instanceof(User);
   });
 
+  it.skip('should be able to favorite a recipe', () => {
+    expect(user.favoriteRecipes.length).to.equal(2);
+    expect(user.favoriteRecipes).to.deep.equal([recipe1, recipe2]);
+  });
+
+  it.skip('should be able to unfavorite a recipe', () => {
+    expect(user.favoriteRecipes.length).to.equal(1);
+    expect(user.favoriteRecipes).to.deep.equal([recipe1]);
+  })
+
+  
 })
