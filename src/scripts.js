@@ -3,9 +3,9 @@ import apiCalls from './apiCalls';
 import Recipe from '../src/classes/Recipe';
 import RecipeRepository from '../src/classes/RecipeRepository';
 import Ingredient from '../src/classes/Ingredient';
-// import { recipeData } from '../src/data/recipes';
-// import { ingredientsData } from '../src/data/ingredients';
-// import { usersData } from '../src/data/users';
+import { recipeData } from '../src/data/recipes';
+import { ingredientsData } from '../src/data/ingredients';
+import { usersData } from '../src/data/users';
 
 
 //DOM variables
@@ -17,6 +17,7 @@ const dinnerBtn = document.getElementById('dinnerBtn');
 const dessertBtn = document.getElementById('dessertBtn');
 const searchRecipeForm = document.getElementById('search');
 const addToMPBtn = document.getElementById('addToMPBtn');
+const viewAllBtn = document.getElementById('viewAll');
 
   //page areas/sections
 //(grabbed section containing the divs)
@@ -35,12 +36,27 @@ window.addEventListener('load', loadRandomInfo);
 // lunchBtn.addEventListener('click', showLunchRecipes);
 // dinnerBtn.addEventListener('click', showDinnerRecipes);
 // dessertBtn.addEventListener('click', showDessertRecipes);
-// searchRecipeForm.addEventListener('click', showAllRecipes);
+// searchRecipeForm.addEventListener('click', showSearchedRecipes);
 // addToMPBtn.addEventListener('click', addRecipeToMealPlan);
+viewAllBtn.addEventListener('click', showAllRecipes);
 
 
 //functions
-function loadRandomInfo() {
+function loadRandomInfo(recipeData) {
   console.log('Working');
+  // randomRecArea.innerHTML = '';
+  // recipeData.forEach(recipe => {
+  //   randomRecArea.innerHTML =
+  //   `<section class='random-recipes' id='randomRecipes'>
+  //     <div class='popular-recipes-one' id='${recipe.id}'>
+  //       <img src='${recipe.image}'>
+  //     </div>
+  //   </section>`
+  })
   // on window load, a random user should be logged in and some random recipes should load at bottom for 'Popular Recipes section';
 }
+
+
+// function showAllRecipes(recipeData) {
+//
+// }
