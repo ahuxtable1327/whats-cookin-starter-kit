@@ -1,4 +1,8 @@
+<<<<<<< HEAD:src/data/test-data.js
 let recipeData = {
+=======
+const testRecipeData = {
+>>>>>>> main:src/data/testRecipeData.js
   "id": 595736,
   "image": "https://spoonacular.com/recipeImages/595736-556x370.jpg",
   "ingredients": [
@@ -43,41 +47,6 @@ let recipeData = {
         "amount": 0.5,
         "unit": "c"
       }
-    },
-    {
-      "id": 2047,
-      "quantity": {
-        "amount": 0.5,
-        "unit": "tsp"
-      }
-    },
-    {
-      "id": 1012047,
-      "quantity": {
-        "amount": 24,
-        "unit": "servings"
-      }
-    },
-    {
-      "id": 10019903,
-      "quantity": {
-        "amount": 2,
-        "unit": "c"
-      }
-    },
-    {
-      "id": 1145,
-      "quantity": {
-        "amount": 0.5,
-        "unit": "c"
-      }
-    },
-    {
-      "id": 2050,
-      "quantity": {
-        "amount": 0.5,
-        "unit": "tsp"
-      }
     }
   ],
   "instructions": [
@@ -116,3 +85,5 @@ let recipeData = {
     "hor d'oeuvre"
   ]
 };
+
+export default testRecipeData;
