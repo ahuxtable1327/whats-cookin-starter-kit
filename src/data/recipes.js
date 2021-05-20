@@ -1,3 +1,5 @@
+export default recipeData;
+
 const recipeData = [
     {
       "id": 595736,

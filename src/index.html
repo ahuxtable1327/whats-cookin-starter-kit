@@ -16,6 +16,7 @@
         <button class='lunch-btn' id='lunchBtn'>Lunch</button>
         <button class='dinner-btn' id='dinnerBtn'>Dinner</button>
         <button class='dessert-btn' id='dessertBtn'>Dessert</button>
+        <button type="view-all" id='viewAllBtn'>View All Recipes</button>
       </section>
       <section class='lower-section' id='lowerSection'>
         <section>
@@ -25,8 +26,7 @@
         </section>
         <section class='random-recipes' id='randomRecipes'>
           <div class='popular-recipes-one' id='popularRecipesOne'>
-          </div>
-          <div class='popular-recipes-two' id='popularRecipesTwo'>
+            <img src="https://spoonacular.com/recipeImages/595736-556x370.jpg" alt="chocolate-chip-cookies">
           </div>
         </section>
       </section>
@@ -50,12 +50,12 @@
       </section>
       <section>
         <h2>Specific Recipe Info</h2>
-        <button type='add-meal-plan-btn' name='mealPlanBtn'>Add To Meal Plan</button>
+        <button type='add-meal-plan-btn' name='mealPlanBtn' id='addToMPBtn'>Add To Meal Plan</button>
         <aside class='image-and-desc' id='imageDesc'>
           <img src='image addy' alt='alt tag'>
           <p>summary of recipe overlays image</p>
         </aside>
-        <aside class='ingredients-prep' id=''>
+        <aside class='ingredients-prep' id='prepInstArea'>
           <div class='ingredient-info' id='ingInfo'>
             <p>ingredients go here</p>
           </div>
@@ -64,7 +64,7 @@
           </div>
         </aside>
       </section>
-      <section class='favorites'>
+      <section class='favorites' id='favoritesArea'>
         <h2>Favorites</h2>
         <div class='recipe-listing' id=recipeListing1>
           <img src='https://spoonacular.com/recipeImages/595736-556x370.jpg' alt="cookies">
