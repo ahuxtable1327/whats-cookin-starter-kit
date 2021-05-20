@@ -50,11 +50,11 @@ describe('Recipe', () => {
     expect(newRecipe.listIngredients(testIngredientData)).to.equal(newRecipe.ingredientNames);
   });
 
-  it.skip('Should calculate the cost of all it\'s ingredients', () => {
-    expect(newRecipe.calculateRecipeCost()).to.equal(9.76);
+  it('Should calculate the cost of all it\'s ingredients', () => {
+    expect(newRecipe.calculateRecipeCost(testIngredientData)).to.equal(32.35);
   });
 
-  it.skip('Should return its directions/prep instructions', () => {
+  it('Should return its directions/prep instructions', () => {
     expect(newRecipe.displayInstructions()).to.equal(newRecipe.instructions);
   });
 
