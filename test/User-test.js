@@ -10,19 +10,23 @@ describe('User', () => {
   let user, repository;
 
   beforeEach(() => {
-    repository = new Repository(testRecipes);
-    user = new User();
+    user = new User(testUsers[0]);
+    repository = new RecipeRepository(testRecipes);
+
   })
 
-  it.skip('should be a function', () => {
+  it('should be a function', () => {
     expect(User).to.be.a('function');
   });
 
-  it.skip('should be an instance of User', () => {
+  it('should be an instance of User', () => {
     expect(user).to.be.an.instanceof(User);
   });
 
-  it.skip('should be able to favorite a recipe', () => {
+  it('should be able to favorite a recipe', () => {
+    user.addFavorite(repository.recipes[0]);
+    user.addFavorite(repository.recipes[1]);
+
     expect(user.favoriteRecipes.length).to.equal(2);
     expect(user.favoriteRecipes).to.deep.equal([repository.recipes[0], repository.recipes[1]]);
   });
