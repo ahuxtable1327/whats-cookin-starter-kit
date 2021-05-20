@@ -12,21 +12,23 @@ class Recipe {
   listIngredients(testIngredientData) {
     const names = this.ingredients.map(ingredient => {
       const matchedIds = testIngredientData.filter(ing => {
-        return ing.id === ingredient.id;
+        ing.id === ingredient.id;
       });
       const list = matchedIds.map(ing => {
-        this.ingredientNames.push(ing.name);
+        this.ingredientNames.push({name: ing.name, price: ing.estimatedCostInCents})
       });
     });
     return this.ingredientNames;
   }
 
   calculateRecipeCost(testIngredientData) {
-    let recipeCost = 0;
-    const result = this.ingredients.forEach(ingredient => {
-      testIngredientData.filter()
-    });
-    return recipeCost;
+    const total = this.ingredients.reduce((acc, curIng) => {
+      let matched = testIngredientData.find(ingredient =>
+        ingredient.id === curIng.id)
+        acc += curIng.quantity.amount * matched.estimatedCostInCents;
+        return acc;
+    }, 0);
+    return total / 100;
   }
 
   displayInstructions() {
