@@ -24,13 +24,15 @@
             <input type='text' placeholder='Find a Recipe'>
           </form>
         </section>
+        <h1>Popular Recipes</h1>
         <section class='random-recipes' id='randomRecipes'>
           <div class='popular-recipes-one' id='popularRecipesOne'>
+            <p>Random Recipe Desc</p>
             <img src="https://spoonacular.com/recipeImages/595736-556x370.jpg" alt="chocolate-chip-cookies">
           </div>
         </section>
       </section>
-      <section class='recipe-by-cat' id='recipeByCat'>
+      <section class='recipe-by-cat hidden' id='recipeByCat'>
         <h2>CATEGORY NAME</h2>
         <div class='recipe-listing' id=recipeListing1>
           <img src='https://spoonacular.com/recipeImages/595736-556x370.jpg' alt="cookies">
@@ -48,11 +50,11 @@
           <p>Brief Description...</p>
         </div>
       </section>
-      <section>
+      <section class='recipe-info hidden'>
         <h2>Specific Recipe Info</h2>
         <button type='add-meal-plan-btn' name='mealPlanBtn' id='addToMPBtn'>Add To Meal Plan</button>
         <aside class='image-and-desc' id='imageDesc'>
-          <img src='image addy' alt='alt tag'>
+          <!-- <img src='image addy' alt='alt tag'> -->
           <p>summary of recipe overlays image</p>
         </aside>
         <aside class='ingredients-prep' id='prepInstArea'>
@@ -64,7 +66,7 @@
           </div>
         </aside>
       </section>
-      <section class='favorites' id='favoritesArea'>
+      <section class='favorites hidden' id='favoritesArea'>
         <h2>Favorites</h2>
         <div class='recipe-listing' id=recipeListing1>
           <img src='https://spoonacular.com/recipeImages/595736-556x370.jpg' alt="cookies">
@@ -83,7 +85,7 @@
           <p>Brief Description...</p>
         </div>
       </section>
-      <section class='meal-plan' id='mealPlan'>
+      <section class='meal-plan hidden' id='mealPlan'>
         <h2>Meal Plan</h2>
       </section>
     </main>

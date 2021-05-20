@@ -1,5 +1,3 @@
-export default recipeData;
-
 const recipeData = [
     {
       "id": 595736,
@@ -5383,3 +5381,5 @@ const recipeData = [
       ]
     }
   ]
+
+  export default recipeData;
