@@ -38,7 +38,7 @@ window.addEventListener('load', loadRandomInfo);
 // dessertBtn.addEventListener('click', showDessertRecipes);
 // searchRecipeForm.addEventListener('click', showSearchedRecipes);
 // addToMPBtn.addEventListener('click', addRecipeToMealPlan);
-viewAllBtn.addEventListener('click', showAllRecipes);
+// viewAllBtn.addEventListener('click', showAllRecipes);
 
 
 //functions
@@ -52,11 +52,17 @@ function loadRandomInfo(recipeData) {
   //       <img src='${recipe.image}'>
   //     </div>
   //   </section>`
-  })
+  // })
   // on window load, a random user should be logged in and some random recipes should load at bottom for 'Popular Recipes section';
 }
-
 
 // function showAllRecipes(recipeData) {
 //
 // }
+
+function showSearchedRecipes(searchTerm) {
+  const results = recipeData.filter(recipe => {
+    recipe.includes(searchTerm);
+  })
+  console.log(results);
+}
