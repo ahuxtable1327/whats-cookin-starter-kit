@@ -1,35 +1,4 @@
-let ingredientData = [{
-  "id": 20081,
-  "name": "wheat flour",
-  "estimatedCostInCents": 142
-},
-{
-  "id": 18372,
-  "name": "bicarbonate of soda",
-  "estimatedCostInCents": 582
-},
-{
-  "id": 1123,
-  "name": "eggs",
-  "estimatedCostInCents": 472
-},
-{
-  "id": 19335,
-  "name": "sucrose",
-  "estimatedCostInCents": 902
-},
-{
-  "id": 19206,
-  "name": "instant vanilla pudding",
-  "estimatedCostInCents": 660
-},
-{
-  "id": 19334,
-  "name": "brown sugar",
-  "estimatedCostInCents": 559
-}];
-
-let recipeData = {
+const testRecipeData = {
   "id": 595736,
   "image": "https://spoonacular.com/recipeImages/595736-556x370.jpg",
   "ingredients": [
@@ -74,41 +43,6 @@ let recipeData = {
         "amount": 0.5,
         "unit": "c"
       }
-    },
-    {
-      "id": 2047,
-      "quantity": {
-        "amount": 0.5,
-        "unit": "tsp"
-      }
-    },
-    {
-      "id": 1012047,
-      "quantity": {
-        "amount": 24,
-        "unit": "servings"
-      }
-    },
-    {
-      "id": 10019903,
-      "quantity": {
-        "amount": 2,
-        "unit": "c"
-      }
-    },
-    {
-      "id": 1145,
-      "quantity": {
-        "amount": 0.5,
-        "unit": "c"
-      }
-    },
-    {
-      "id": 2050,
-      "quantity": {
-        "amount": 0.5,
-        "unit": "tsp"
-      }
     }
   ],
   "instructions": [
@@ -147,3 +81,5 @@ let recipeData = {
     "hor d'oeuvre"
   ]
 };
+
+export default testRecipeData;
