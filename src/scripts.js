@@ -1,5 +1,14 @@
 import './styles.css';
 import apiCalls from './apiCalls';
+import Recipe from '../src/classes/Recipe';
+import RecipeRepository from '../src/classes/RecipeRepository';
+import Ingredient from '../src/classes/Ingredient';
+import { recipeData } from '../src/data/recipes';
+import { ingredientsData } from '../src/data/ingredients';
+import { usersData } from '../src/data/users';
+
+
+
 
 console.log('Hello world');
 //DOM variables
@@ -24,7 +33,7 @@ const mealPlan = document.getElementByID('mealPlan');
 
 
 // Event Listeners
-// window.addEventListener('load', logInRandomUser);
+// window.addEventListener('load', loadRandomUserRec);
 // favoritesBtn.addEventListener('click', showFavRecipes);
 breakfastBtn.addEventListener('click', showBreakfastRecipes);
 lunchBtn.addEventListener('click', showLunchRecipes);
@@ -32,3 +41,8 @@ dinnerBtn.addEventListener('click', showDinnerRecipes);
 dessertBtn.addEventListener('click', showDessertRecipes);
 // searchRecipeForm.addEventListener('click', showAllRecipes);
 addToMPBtn.addEventListener('click', addRecipeToMealPlan);
+
+
+loadRandomUserRec() {
+
+}
