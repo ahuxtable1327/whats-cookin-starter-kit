@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/data/test-data.js
-let recipeData = {
-=======
 const testRecipeData = {
->>>>>>> main:src/data/testRecipeData.js
   "id": 595736,
   "image": "https://spoonacular.com/recipeImages/595736-556x370.jpg",
   "ingredients": [
