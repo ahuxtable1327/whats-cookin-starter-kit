@@ -24,7 +24,7 @@ class Recipe {
   calculateRecipeCost(testIngredientData) {
     const total = this.ingredients.reduce((acc, curIng) => {
       let matched = testIngredientData.find(ingredient =>
-        ingredient.id === curIng.id)
+        ingredient.id === curIng.id);
         acc += curIng.quantity.amount * matched.estimatedCostInCents;
         return acc;
     }, 0);
