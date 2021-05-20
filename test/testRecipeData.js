@@ -1,4 +1,4 @@
-const testRecipes = [
+const testRecipeData = [
   {
     "id": 595736,
     "image": "https://spoonacular.com/recipeImages/595736-556x370.jpg",
@@ -452,3 +452,5 @@ const testRecipes = [
     ]
   },
 ]
+
+export default testRecipeData;

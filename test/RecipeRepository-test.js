@@ -4,7 +4,7 @@ import Recipe from '../src/classes/Recipe'
 import testRecipes from './testRecipeData'
 
 describe('RecipeRepository', () => {
-  let repository, recipes
+  let repository
 
   beforeEach(() => {
       repository = new RecipeRepository(testRecipes);
@@ -19,21 +19,22 @@ describe('RecipeRepository', () => {
   });
 
   it('should be able to take in a recipe', () => {
-    expect(repository.recipes).to.equal(recipe);
+    // expect(repository.recipes[0]).to.be
+    expect(repository.recipes).to.deep.equal(testRecipes);
   });
 
   it('should return a filtered list based on recipe tags', () => {
-    let recipeList = recipe.filterByTag('starter');
-    expect(recipeList.length).to.equal(1);
+    repository.filterByTag('starter');
+    expect(repository.recipeList.length).to.deep.equal(1);
   });
 
-  it.skip('should return a filtered list based on recipe name', () => {
-    let recipeList = recipe.filterByName('pork chops');
-    expect(recipeList.length).to.equal(0);
+  it('should return a filtered list based on recipe name', () => {
+    repository.filterByName('pork chops');
+    expect(repository.recipeList.length).to.equal(1);
   });
 
   it.skip('should return a filtered list based on ingredients', () => {
     let recipeList = recipe.filterByIngredient('wheat flour');
-    expect(recipeList.length).to.equal(1);
+    expect(repository.recipeList.length).to.equal(1);
   });
 })
