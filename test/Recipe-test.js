@@ -16,7 +16,7 @@ describe('Recipe', () => {
     expect(newRecipe).to.be.instanceof(Recipe);
   });
 
-  it('Should have an id', () => {
+  it('should have an id', () => {
     expect(newRecipe.id).to.be.finite;
     expect(newRecipe.id).to.equal(595736);
   });
