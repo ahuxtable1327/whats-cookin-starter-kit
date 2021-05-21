@@ -21,16 +21,20 @@ const dinnerBtn = document.getElementById('dinnerBtn');
 const dessertBtn = document.getElementById('dessertBtn');
 const searchRecipeForm = document.getElementById('search');
 const addToMPBtn = document.getElementById('addToMPBtn');
-const viewAllBtn = document.getElementById('viewAll');
+const viewAllBtn = document.getElementById('viewAllBtn');
 
   //page areas/sections
 //(grabbed section containing the divs)
 const randomRecArea = document.getElementById('randomRecipes');
+const searchArea = document.getElementById('searchArea');
 const recipeByCat = document.getElementById('recipeByCat');
 const imageDesc = document.getElementById('imageDesc');
 const prepInstArea = document.getElementById('prepInstArea');
 const favoritesArea = document.getElementById('favoritesArea');
 const mealPlan = document.getElementById('mealPlan');
+const lowerMain = document.getElementById('lowerSection');
+const allRecipeArea = document.getElementById('allRecipes');
+
 
 
 // Event Listeners
@@ -42,8 +46,8 @@ window.addEventListener('load', loadRandomInfo);
 // dessertBtn.addEventListener('click', showDessertRecipes);
 // searchRecipeForm.addEventListener('click', displaySearchedRecipes);
 // addToMPBtn.addEventListener('click', addRecipeToMealPlan);
-// viewAllBtn.addEventListener('click', displayAllRecipes);
-randomRecArea.addEventListener('click', showRecipeInfo);
+viewAllBtn.addEventListener('click', displayAllRecipes);
+// randomRecArea.addEventListener('click', showRecipeInfo);
 
 
 //functions
@@ -51,14 +55,12 @@ function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 };
 
-function loadRandomInfo(data) {
-  console.log('Working');
-  console.log(testRecipeData);
-  console.log(recipeData);
-  randomRecArea.innerHTML = '';
+function loadRandomInfo() {
+  // on window load, still need a random user to be logged in
   const randomIndex1 = getRandomIndex(recipeData);
   const randomIndex2 = getRandomIndex(recipeData);
-  randomRecArea.innerHTML =
+  randomRecArea.innerHTML = '';
+  randomRecArea.innerHTML +=
   `
    <section class='random-recipes' id='randomRecipes'>
     <div class='popular-recipes-one' id='popularRecipesOne'>
@@ -71,11 +73,11 @@ function loadRandomInfo(data) {
     </div>
    </section>
   `
-  // on window load, still need a random user to be logged in
-
-function displayClickedRecipe(event) {
-  // event.closest.innerHTML.....
 }
+
+// function displayClickedRecipe(event) {
+//   event.closest.innerHTML....
+// }
 
 // function displaySearchedRecipes(searchTerm) {
 //   const searchResults = recipeData.filter(recipe => {
@@ -83,3 +85,23 @@ function displayClickedRecipe(event) {
 //   });
 //   console.log(searchResults);
 // }
+
+function displayAllRecipes() {
+  //input: array of recipe objects
+  // output innerHTML recipe name and image
+  lowerMain.classList.toggle('hidden');
+  allRecipeArea.classList.toggle('hidden');
+  let allRecipes = recipeData.forEach(recipe => {
+    allRecipeArea.innerHTML +=
+    `
+    <section class='all-recipes' id='allRecipes'>
+      <div class='popular-recipes-one' id='popularRecipesOne'>
+        <h3>${recipe.name}</h3>
+        <img src="${recipe.image}" alt="chocolate-chip-cookies">
+      </div>
+    </section>
+    `
+  });
+  console.log(allRecipes);
+  return allRecipes;
+}
