@@ -11,6 +11,7 @@
       <button class='home-btn' id='homeBtn'>🏠Home Page</button>
     </header>
     <main>
+
       <section class='category' id='category'>
         <button class='breakfast-btn' id='breakfastBtn'>Breakfast</button>
         <button class='lunch-btn' id='lunchBtn'>Lunch</button>
@@ -18,16 +19,21 @@
         <button class='dessert-btn' id='dessertBtn'>Dessert</button>
         <button type="view-all" id='viewAllBtn'>View All Recipes</button>
       </section>
+
       <section class='lower-section' id='lowerSection'>
-        <section>
+        <section class='search' id='searchArea'>
           <form class='search' id='search'>
             <input type='text' placeholder='Find a Recipe'>
           </form>
         </section>
-        <h1>Popular Recipes</h1>
+          <h1>Popular Recipes</h1>
         <section class='random-recipes' id='randomRecipes'>
         </section>
       </section>
+
+      <section class='all-recipes hidden' id='allRecipes'>
+      </section>
+
       <section class='recipe-by-cat hidden' id='recipeByCat'>
         <!-- <h2>CATEGORY NAME</h2>
         <div class='recipe-listing' id=recipeListing1>
@@ -46,6 +52,7 @@
           <p>Brief Description...</p>
         </div> -->
       </section>
+
       <section class='recipe-info hidden'>
         <h2>Specific Recipe Info</h2>
         <button type='add-meal-plan-btn' name='mealPlanBtn' id='addToMPBtn'>Add To Meal Plan</button>
@@ -62,6 +69,7 @@
           </div>
         </aside>
       </section>
+
       <section class='favorites hidden' id='favoritesArea'>
         <h2>Favorites</h2>
         <div class='recipe-listing' id=recipeListing1>
@@ -81,9 +89,11 @@
           <p>Brief Description...</p>
         </div>
       </section>
+
       <section class='meal-plan hidden' id='mealPlan'>
         <h2>Meal Plan</h2>
       </section>
+
     </main>
   </body>
 </html>

@@ -19,16 +19,20 @@ const dinnerBtn = document.getElementById('dinnerBtn');
 const dessertBtn = document.getElementById('dessertBtn');
 const searchRecipeForm = document.getElementById('search');
 const addToMPBtn = document.getElementById('addToMPBtn');
-const viewAllBtn = document.getElementById('viewAll');
+const viewAllBtn = document.getElementById('viewAllBtn');
 
   //page areas/sections
 //(grabbed section containing the divs)
 const randomRecArea = document.getElementById('randomRecipes');
+const searchArea = document.getElementById('searchArea');
 const recipeByCat = document.getElementById('recipeByCat');
 const imageDesc = document.getElementById('imageDesc');
 const prepInstArea = document.getElementById('prepInstArea');
 const favoritesArea = document.getElementById('favoritesArea');
 const mealPlan = document.getElementById('mealPlan');
+const lowerMain = document.getElementById('lowerSection');
+const allRecipeArea = document.getElementById('allRecipes');
+
 
 
 // Event Listeners
@@ -42,7 +46,7 @@ window.addEventListener('load', function() {
 // dessertBtn.addEventListener('click', showDessertRecipes);
 // searchRecipeForm.addEventListener('click', displaySearchedRecipes);
 // addToMPBtn.addEventListener('click', addRecipeToMealPlan);
-// viewAllBtn.addEventListener('click', displayAllRecipes);
+viewAllBtn.addEventListener('click', displayAllRecipes);
 randomRecArea.addEventListener('click', displayClickedRecipe);
 
 
@@ -77,9 +81,33 @@ function displayClickedRecipe(event) {
   console.log(currentRecipe)
 }
 
+// function displayClickedRecipe(event) {
+//   event.closest.innerHTML....
+// }
+
 // function displaySearchedRecipes(searchTerm) {
 //   const searchResults = recipeData.filter(recipe => {
 //     recipe.includes(searchTerm);
 //   });
 //   console.log(searchResults);
 // }
+
+function displayAllRecipes() {
+  //input: array of recipe objects
+  // output innerHTML recipe name and image
+  lowerMain.classList.toggle('hidden');
+  allRecipeArea.classList.toggle('hidden');
+  let allRecipes = recipeData.forEach(recipe => {
+    allRecipeArea.innerHTML +=
+    `
+    <section class='all-recipes' id='allRecipes'>
+      <div class='popular-recipes-one' id='popularRecipesOne'>
+        <h3>${recipe.name}</h3>
+        <img src="${recipe.image}" alt="chocolate-chip-cookies">
+      </div>
+    </section>
+    `
+  });
+  console.log(allRecipes);
+  return allRecipes;
+}
