@@ -5,9 +5,7 @@ import Recipe from '../src/classes/Recipe';
 import Ingredient from '../src/classes/Ingredient';
 import testRecipeData from '../src/data/testRecipeData';
 import testIngredientData from '../src/data/testIngredientData';
-// const data = testRecipeData;
 import recipeData from '../src/data/recipes';
-// const data = recipeData;
 // import ingredientsData from '../src/data/ingredients';
 // import usersData from '../src/data/users';
 
@@ -34,7 +32,9 @@ const mealPlan = document.getElementById('mealPlan');
 
 
 // Event Listeners
-window.addEventListener('load', loadRandomInfo);
+window.addEventListener('load', function() {
+  loadRandomInfo(recipeData);
+});
 // favoritesBtn.addEventListener('click', showFavRecipes);
 // breakfastBtn.addEventListener('click', showBreakfastRecipes);
 // lunchBtn.addEventListener('click', showLunchRecipes);
@@ -43,7 +43,7 @@ window.addEventListener('load', loadRandomInfo);
 // searchRecipeForm.addEventListener('click', displaySearchedRecipes);
 // addToMPBtn.addEventListener('click', addRecipeToMealPlan);
 // viewAllBtn.addEventListener('click', displayAllRecipes);
-randomRecArea.addEventListener('click', showRecipeInfo);
+randomRecArea.addEventListener('click', displayClickedRecipe);
 
 
 //functions
@@ -51,30 +51,30 @@ function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 };
 
-function loadRandomInfo(data) {
-  console.log('Working');
-  console.log(testRecipeData);
-  console.log(recipeData);
+function loadRandomInfo(recipeData) {
   randomRecArea.innerHTML = '';
-  const randomIndex1 = getRandomIndex(recipeData);
-  const randomIndex2 = getRandomIndex(recipeData);
+  const randomIndex1 = recipeData[getRandomIndex(recipeData)];
+  const randomIndex2 = recipeData[getRandomIndex(recipeData)];
   randomRecArea.innerHTML =
   `
    <section class='random-recipes' id='randomRecipes'>
-    <div class='popular-recipes-one' id='popularRecipesOne'>
-      <h3>${recipeData[randomIndex1].name}</h3>
-      <img src="${recipeData[randomIndex1].image}" alt="chocolate-chip-cookies">
+    <div class='popular-recipes-one' id='${randomIndex1.id}'>
+      <h3>${randomIndex1.name}</h3>
+      <img src="${randomIndex1.image}" alt="chocolate-chip-cookies">
     </div>
-    <div class='popular-recipes-one' id='popularRecipesOne'>
-      <h3>${recipeData[randomIndex2].name}</h3>
-      <img src="${recipeData[randomIndex2].image}" alt="chocolate-chip-cookies">
+    <div class='popular-recipes-one' id='${randomIndex2.id}'>
+      <h3>${randomIndex2.name}</h3>
+      <img src="${randomIndex2.image}" alt="chocolate-chip-cookies">
     </div>
    </section>
   `
+  console.log(randomIndex1)
+}
   // on window load, still need a random user to be logged in
 
 function displayClickedRecipe(event) {
-  // event.closest.innerHTML.....
+  const currentRecipe = event.target.closest('div').id
+  console.log(currentRecipe)
 }
 
 // function displaySearchedRecipes(searchTerm) {
