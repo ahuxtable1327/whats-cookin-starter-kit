@@ -155,8 +155,9 @@ function displaySearchedRecipes(event) {
   lowerMain.classList.add('hidden');
   allRecipeArea.classList.add('hidden');
   recipeByCat.classList.remove('hidden');
-  const searchTerm = searchValue.value
+  const searchTerm = searchValue.value.trim();
   repository.filterByName(searchTerm);
+  repository.filterByIngredient(searchTerm);
   const recipeList = repository.recipeList
   recipeByCat.innerHTML = ''
   pageTitle.innerText = `Recipes that include ${searchTerm}`
