@@ -32,7 +32,10 @@ class Recipe {
   }
 
   displayInstructions() {
-    return this.instructions;
+    let instToDisplay = this.instructions.forEach(inst => {
+      console.log(inst)
+    });
+    return inst;
   }
 
 }

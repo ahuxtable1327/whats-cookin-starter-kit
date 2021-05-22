@@ -105,8 +105,7 @@ function displayClickedPopular(event) {
       </section>
     </section>
   `
-
-  // return matchedData;
+  return matchedData;
 }
 
 // function displaySearchedRecipes(searchTerm) {
@@ -135,13 +134,9 @@ function displayAllRecipes() {
 }
 
 function navigateToHome() {
-  if (!allRecipeArea.classList.contains('hidden') || (!singleRecipeArea.classList.contains('hidden'))) {
-    loadRandomInfo();
     allRecipeArea.classList.toggle('hidden');
     lowerMain.classList.toggle('hidden');
-  } else {
-    return;
-  } 
+    loadRandomInfo();
 }
 
 
