@@ -38,7 +38,7 @@ const lowerMain = document.getElementById('lowerMain');
 const allRecipeArea = document.getElementById('allRecipes');
 const singleRecipeArea = document.getElementById('singleRecipe');
 const pageTitle = document.getElementById('pageTitle');
-
+const instructionsArea = document.getElementById('instructions');
 const currentRecipePage = document.getElementById('currentRecipe');
 
 const searchValue = document.getElementById('searchValue');
@@ -84,7 +84,7 @@ function loadRandomInfo(recipeData) {
   randomRecArea.innerHTML = '';
   const randomIndex1 = recipeData[getRandomIndex(recipeData)];
   const randomIndex2 = recipeData[getRandomIndex(recipeData)];
-  randomRecArea.innerHTML =
+  randomRecArea.innerHTML +=
   `
    <section class='random-recipes' id='randomRecipes'>
     <div class='popular' id='${randomIndex1.id}'>
@@ -101,17 +101,17 @@ function loadRandomInfo(recipeData) {
   // on window load, still need a random user to be logged in
 
 function displayClickedPopular(event) {
-  lowerMain.classList.toggle('hidden');
-  singleRecipeArea.classList.toggle('hidden');
-
+  toggleHidden(lowerMain);
+  toggleHidden(singleRecipeArea);
+  toggleHidden(instructionsArea);
   let recipeToView = event.target.closest('.popular');
-
   let matchedData = recipeData.find(recipe => {
     return recipe.id === parseInt(recipeToView.id);
   });
+  // console.log(matchedData);
+  let result = new Recipe(matchedData);
 
   singleRecipeArea.innerHTML = '';
-
   singleRecipeArea.innerHTML +=
   `
     <section class='single-recipe-view' id='singleRecipe'>
@@ -120,20 +120,25 @@ function displayClickedPopular(event) {
           <h2>${matchedData.name}</h2>
         </header>
         <img src="${matchedData.image}">
-        <h1>Ingredients</h1>
       </div>
-      <section>
-        <h1>Instructions</h1>
-        <p>${matchedData.instructions}</p>
-      </section>
     </section>
+     <h2>Instructions</h2>
   `
+  instructionsArea.innerHTML = '';
+  result.instructions.forEach(inst => {
+    instructionsArea.innerHTML +=
+    `
+    <p>${inst.instruction}</p>
+    `
+  });
+
   return matchedData;
 }
 
 // separate instructions in HTML
 // recipedata.map ( for each let recipe instructions = recipe.instructions
 // recipeInstruction.forEach --> return number and instruction)
+
 
   function displayCategoryRecipes(event) {
     lowerMain.classList.add('hidden');
@@ -176,6 +181,12 @@ function displaySearchedRecipes(event) {
 }
 
 function displayAllRecipes() {
+  if (!singleRecipeArea.classList.contains('hidden')) {
+    toggleHidden(singleRecipeArea);
+  }
+  if (!instructionsArea.classList.contains('hidden')) {
+    toggleHidden(instructionsArea);
+  }
   disableBtn(viewAllBtn);
   lowerMain.classList.add('hidden');
   allRecipeArea.classList.remove('hidden');
@@ -194,12 +205,34 @@ function displayAllRecipes() {
   return allRecipes;
 }
 
+
+
 function navigateToHome() {
-    allRecipeArea.classList.add('hidden');
-    lowerMain.classList.remove('hidden');
-    singleRecipeArea.classList.add('hidden')
-    searchValue.value = ''
-    loadRandomInfo(recipeData);
+  if (!allRecipeArea.classList.contains('hidden')) {
+    toggleHidden(allRecipeArea);
+    enableBtn(viewAllBtn);
+  }
+  if (!singleRecipeArea.classList.contains('hidden')) {
+    toggleHidden(singleRecipeArea);
+  }
+  if (!instructionsArea.classList.contains('hidden')) {
+    toggleHidden(instructionsArea);
+  }
+  if (lowerMain.classList.toggle('hidden')) {
+    toggleHidden(lowerMain);
+  }
+  if (!pageTitle.classList.contains('hidden')) {
+    toggleHidden(pageTitle);
+  }
+  loadRandomInfo(recipeData);
+}
+
+
+
+
+
+function toggleHidden(pageArea) {
+  pageArea.classList.toggle('hidden');
 }
 
 function disableBtn(buttonName) {

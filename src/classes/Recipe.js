@@ -18,7 +18,9 @@ class Recipe {
         this.ingredientNames.push({name: ing.name, price: ing.estimatedCostInCents})
       });
     });
-    return this.ingredientNames;
+    return this.ingredientNames.forEach(ing => {
+      return ing;
+    });
   }
 
   calculateRecipeCost(testIngredientData) {
@@ -32,10 +34,8 @@ class Recipe {
   }
 
   displayInstructions() {
-    let instToDisplay = this.instructions.forEach(inst => {
-      console.log(inst)
-    });
-    return inst;
+    console.log(this.instructions);
+    // return this.ingredientNames;
   }
 
 }
