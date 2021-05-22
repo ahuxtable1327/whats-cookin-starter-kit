@@ -38,7 +38,7 @@ const lowerMain = document.getElementById('lowerMain');
 const allRecipeArea = document.getElementById('allRecipes');
 const singleRecipeArea = document.getElementById('singleRecipe');
 const pageTitle = document.getElementById('pageTitle');
-
+const instructionsArea = document.getElementById('instructions');
 const currentRecipePage = document.getElementById('currentRecipe');
 
 
@@ -66,7 +66,7 @@ homeBtn.addEventListener('click', navigateToHome);
 viewAllBtn.addEventListener('click', displayAllRecipes);
 
 randomRecArea.addEventListener('click', displayClickedPopular);
-randomRecArea.addEventListener('click', displayClickedRecipe);
+// randomRecArea.addEventListener('click', displayClickedRecipe);
 
 
 //functions
@@ -79,7 +79,7 @@ function loadRandomInfo(recipeData) {
   randomRecArea.innerHTML = '';
   const randomIndex1 = recipeData[getRandomIndex(recipeData)];
   const randomIndex2 = recipeData[getRandomIndex(recipeData)];
-  randomRecArea.innerHTML =
+  randomRecArea.innerHTML +=
   `
    <section class='random-recipes' id='randomRecipes'>
     <div class='popular' id='${randomIndex1.id}'>
@@ -96,8 +96,9 @@ function loadRandomInfo(recipeData) {
   // on window load, still need a random user to be logged in
 
 function displayClickedPopular(event) {
-  lowerMain.classList.toggle('hidden');
-  singleRecipeArea.classList.toggle('hidden');
+  toggleHidden(lowerMain);
+  toggleHidden(singleRecipeArea);
+  toggleHidden(instructionsArea);
 
   let recipeToView = event.target.closest('.popular');
 
@@ -105,8 +106,14 @@ function displayClickedPopular(event) {
     return recipe.id === parseInt(recipeToView.id);
   });
 
-  singleRecipeArea.innerHTML = '';
+  console.log(matchedData);
 
+  let result = new Recipe(matchedData);
+
+  // let inst;
+
+
+  singleRecipeArea.innerHTML = '';
   singleRecipeArea.innerHTML +=
   `
     <section class='single-recipe-view' id='singleRecipe'>
@@ -116,14 +123,22 @@ function displayClickedPopular(event) {
         </header>
         <img src="${matchedData.image}">
         <h1>Ingredients</h1>
+        <p></p>
       </div>
-      <section>
-        <h1>Instructions</h1>
-        <p>${matchedData.instructions}</p>
-      </section>
     </section>
   `
+
+  instructionsArea.innerHTML = '';
+  result.instructions.forEach(inst => {
+    instructionsArea.innerHTML +=
+    `
+    <p>${inst.instruction}</p>
+    `
+  });
+
+
   return matchedData;
+}
 
   function displayCategoryRecipes(event) {
     lowerMain.classList.add('hidden');
@@ -152,6 +167,11 @@ function displayClickedPopular(event) {
 // }
 
 function displayAllRecipes() {
+
+  if (!singleRecipeArea.classList.contains('hidden')) {
+    toggleHidden(singleRecipeArea);
+  }
+
   disableBtn(viewAllBtn);
   lowerMain.classList.toggle('hidden');
   allRecipeArea.classList.toggle('hidden');
@@ -170,13 +190,33 @@ function displayAllRecipes() {
   return allRecipes;
 }
 
+
+
 function navigateToHome() {
-    allRecipeArea.classList.toggle('hidden');
-    lowerMain.classList.toggle('hidden');
-    loadRandomInfo();
+  if (!allRecipeArea.classList.contains('hidden')) {
+    toggleHidden(allRecipeArea);
+    enableBtn(viewAllBtn);
+  }
+
+  if (!singleRecipeArea.classList.contains('hidden')) {
+    toggleHidden(singleRecipeArea);
+  }
+
+  if (!instructionsArea.classList.contains('hidden')) {
+    toggleHidden(instructionsArea);
+  }
+
+  lowerMain.classList.toggle('hidden');
+  loadRandomInfo(recipeData);
 }
 
 
+
+
+
+function toggleHidden(pageArea) {
+  pageArea.classList.toggle('hidden');
+}
 
 function disableBtn(buttonName) {
   buttonName.disabled = true;
