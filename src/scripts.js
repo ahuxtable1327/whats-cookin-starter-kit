@@ -99,19 +99,12 @@ function displayClickedPopular(event) {
   toggleHidden(lowerMain);
   toggleHidden(singleRecipeArea);
   toggleHidden(instructionsArea);
-
   let recipeToView = event.target.closest('.popular');
-
   let matchedData = recipeData.find(recipe => {
     return recipe.id === parseInt(recipeToView.id);
   });
-
-  console.log(matchedData);
-
+  // console.log(matchedData);
   let result = new Recipe(matchedData);
-
-  // let inst;
-
 
   singleRecipeArea.innerHTML = '';
   singleRecipeArea.innerHTML +=
@@ -122,12 +115,10 @@ function displayClickedPopular(event) {
           <h2>${matchedData.name}</h2>
         </header>
         <img src="${matchedData.image}">
-        <h1>Ingredients</h1>
-        <p></p>
       </div>
     </section>
+     <h2>Instructions</h2>
   `
-
   instructionsArea.innerHTML = '';
   result.instructions.forEach(inst => {
     instructionsArea.innerHTML +=
@@ -135,7 +126,6 @@ function displayClickedPopular(event) {
     <p>${inst.instruction}</p>
     `
   });
-
 
   return matchedData;
 }
@@ -167,11 +157,12 @@ function displayClickedPopular(event) {
 // }
 
 function displayAllRecipes() {
-
   if (!singleRecipeArea.classList.contains('hidden')) {
     toggleHidden(singleRecipeArea);
   }
-
+  if (!instructionsArea.classList.contains('hidden')) {
+    toggleHidden(instructionsArea);
+  }
   disableBtn(viewAllBtn);
   lowerMain.classList.toggle('hidden');
   allRecipeArea.classList.toggle('hidden');
@@ -197,16 +188,18 @@ function navigateToHome() {
     toggleHidden(allRecipeArea);
     enableBtn(viewAllBtn);
   }
-
   if (!singleRecipeArea.classList.contains('hidden')) {
     toggleHidden(singleRecipeArea);
   }
-
   if (!instructionsArea.classList.contains('hidden')) {
     toggleHidden(instructionsArea);
   }
-
-  lowerMain.classList.toggle('hidden');
+  if (lowerMain.classList.toggle('hidden')) {
+    toggleHidden(lowerMain);
+  }
+  if (!pageTitle.classList.contains('hidden')) {
+    toggleHidden(pageTitle);
+  }
   loadRandomInfo(recipeData);
 }
 
