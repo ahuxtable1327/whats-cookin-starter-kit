@@ -33,9 +33,12 @@ class Recipe {
     return total / 100;
   }
 
-  displayInstructions() {
-    console.log(this.instructions);
-    // return this.ingredientNames;
+  returnInstructions() {
+    let instToReturn = []
+    let result = this.instructions.forEach(inst => {
+      instToReturn.push(inst);
+    });
+    return instToReturn
   }
 
 }
