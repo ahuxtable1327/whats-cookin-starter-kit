@@ -1,24 +1,25 @@
 import './styles.css';
 // import apiCalls from './apiCalls';
 import Recipe from '../src/classes/Recipe';
-// import RecipeRepository from '../src/classes/RecipeRepository';
+import RecipeRepository from '../src/classes/RecipeRepository';
 import Ingredient from '../src/classes/Ingredient';
-// import testRecipeData from '../src/data/testRecipeData';
-// import testIngredientData from '../src/data/testIngredientData';
-// const data = testRecipeData;
+
+import testRecipeData from '../src/data/testRecipeData';
+import testIngredientData from '../src/data/testIngredientData';
+
 import recipeData from '../src/data/recipes';
-// const data = recipeData;
+
 import ingredientsData from '../src/data/ingredients';
 // import usersData from '../src/data/users';
 
-
+const repository = new RecipeRepository(recipeData, ingredientsData);
 //DOM variables
   //buttons and form
 const favoritesBtn = document.getElementById('favBtn');
-const breakfastBtn = document.getElementById('breakfastBtn');
-const lunchBtn = document.getElementById('lunchBtn');
-const dinnerBtn = document.getElementById('dinnerBtn');
-const dessertBtn = document.getElementById('dessertBtn');
+const breakfastBtn = document.getElementById('breakfast');
+const lunchBtn = document.getElementById('lunch');
+const dinnerBtn = document.getElementById('dinner');
+const sideBtn = document.getElementById('side');
 const searchRecipeForm = document.getElementById('search');
 const addToMPBtn = document.getElementById('addToMPBtn');
 const viewAllBtn = document.getElementById('viewAllBtn');
@@ -36,20 +37,36 @@ const favoritesArea = document.getElementById('favoritesArea');
 const lowerMain = document.getElementById('lowerMain');
 const allRecipeArea = document.getElementById('allRecipes');
 const singleRecipeArea = document.getElementById('singleRecipe');
+const pageTitle = document.getElementById('pageTitle');
+
+const currentRecipePage = document.getElementById('currentRecipe');
+
 
 
 // Event Listeners
-window.addEventListener('load', loadRandomInfo);
+window.addEventListener('load', function() {
+  loadRandomInfo(recipeData);
+});
 // favoritesBtn.addEventListener('click', showFavRecipes);
-// breakfastBtn.addEventListener('click', showBreakfastRecipes);
-// lunchBtn.addEventListener('click', showLunchRecipes);
-// dinnerBtn.addEventListener('click', showDinnerRecipes);
-// dessertBtn.addEventListener('click', showDessertRecipes);
+breakfastBtn.addEventListener('click', function () {
+  displayCategoryRecipes(event)
+});
+lunchBtn.addEventListener('click', function () {
+  displayCategoryRecipes(event)
+});
+dinnerBtn.addEventListener('click', function () {
+  displayCategoryRecipes(event)
+});
+sideBtn.addEventListener('click', function () {
+  displayCategoryRecipes(event)
+});
 // searchRecipeForm.addEventListener('click', displaySearchedRecipes);
 // addToMPBtn.addEventListener('click', addRecipeToMealPlan);
 homeBtn.addEventListener('click', navigateToHome);
 viewAllBtn.addEventListener('click', displayAllRecipes);
+
 randomRecArea.addEventListener('click', displayClickedPopular);
+randomRecArea.addEventListener('click', displayClickedRecipe);
 
 
 //functions
@@ -57,25 +74,26 @@ function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 };
 
-function loadRandomInfo() {
-  // on window load, still need a random user to be logged in
-  const randomIndex1 = getRandomIndex(recipeData);
-  const randomIndex2 = getRandomIndex(recipeData);
+function loadRandomInfo(recipeData) {
+  console.log(repository)
   randomRecArea.innerHTML = '';
-  randomRecArea.innerHTML +=
+  const randomIndex1 = recipeData[getRandomIndex(recipeData)];
+  const randomIndex2 = recipeData[getRandomIndex(recipeData)];
+  randomRecArea.innerHTML =
   `
    <section class='random-recipes' id='randomRecipes'>
-    <div class='popular' id='${recipeData[randomIndex1].id}'>
-      <h3>${recipeData[randomIndex1].name}</h3>
-      <img src="${recipeData[randomIndex1].image}">
+    <div class='popular' id='${randomIndex1.id}'>
+      <h3>${randomIndex1.name}</h3>
+      <img src="${randomIndex1.image}" alt="${randomIndex1.name}">
     </div>
-    <div class='popular' id='${recipeData[randomIndex2].id}'>
-      <h3>${recipeData[randomIndex2].name}</h3>
-      <img src="${recipeData[randomIndex2].image}">
+    <div class='popular' id='${randomIndex2.id}'>
+      <h3>${randomIndex2.name}</h3>
+      <img src="${randomIndex2.image}" alt="${randomIndex2.name}">
     </div>
    </section>
   `
 }
+  // on window load, still need a random user to be logged in
 
 function displayClickedPopular(event) {
   lowerMain.classList.toggle('hidden');
@@ -106,6 +124,24 @@ function displayClickedPopular(event) {
     </section>
   `
   return matchedData;
+
+  function displayCategoryRecipes(event) {
+    lowerMain.classList.add('hidden');
+    allRecipeArea.classList.add('hidden');
+    recipeByCat.classList.remove('hidden');
+    const category = event.target.id;
+    repository.filterByTag(category);
+    const tagRecipes = repository.recipeList
+    pageTitle.innerText = `${category} recipes`
+    recipeByCat.innerHTML = ''
+    let catRecipes = tagRecipes.forEach(recipe => {
+      recipeByCat.innerHTML += `
+        <div class='recipe-listing' id=recipeListing1>
+          <img src='${recipe.image}' alt='${recipe.name}'>
+          <p>${recipe.name}</p>
+        </div>
+    `
+  });
 }
 
 // function displaySearchedRecipes(searchTerm) {
@@ -119,6 +155,7 @@ function displayAllRecipes() {
   disableBtn(viewAllBtn);
   lowerMain.classList.toggle('hidden');
   allRecipeArea.classList.toggle('hidden');
+  pageTitle.innerText = `All Recipes`
   let allRecipes = recipeData.forEach(recipe => {
     allRecipeArea.innerHTML +=
     `
