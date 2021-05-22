@@ -22,6 +22,7 @@ const dessertBtn = document.getElementById('dessertBtn');
 const searchRecipeForm = document.getElementById('search');
 const addToMPBtn = document.getElementById('addToMPBtn');
 const viewAllBtn = document.getElementById('viewAllBtn');
+const homeBtn = document.getElementById('homeBtn');
 
   //page areas/sections
 //(grabbed section containing the divs)
@@ -31,10 +32,10 @@ const recipeByCat = document.getElementById('recipeByCat');
 const imageDesc = document.getElementById('imageDesc');
 const prepInstArea = document.getElementById('prepInstArea');
 const favoritesArea = document.getElementById('favoritesArea');
-const mealPlan = document.getElementById('mealPlan');
+// const mealPlan = document.getElementById('mealPlan');
 const lowerMain = document.getElementById('lowerMain');
 const allRecipeArea = document.getElementById('allRecipes');
-
+const singleRecipeArea = document.getElementById('singleRecipe');
 
 
 // Event Listeners
@@ -46,8 +47,9 @@ window.addEventListener('load', loadRandomInfo);
 // dessertBtn.addEventListener('click', showDessertRecipes);
 // searchRecipeForm.addEventListener('click', displaySearchedRecipes);
 // addToMPBtn.addEventListener('click', addRecipeToMealPlan);
+homeBtn.addEventListener('click', navigateToHome);
 viewAllBtn.addEventListener('click', displayAllRecipes);
-randomRecArea.addEventListener('click', displayClickedRecipe);
+randomRecArea.addEventListener('click', displayClickedPopular);
 
 
 //functions
@@ -75,17 +77,37 @@ function loadRandomInfo() {
   `
 }
 
-function displayClickedRecipe(event) {
-  // console.log(recipeData)
+function displayClickedPopular(event) {
+  lowerMain.classList.toggle('hidden');
+  singleRecipeArea.classList.toggle('hidden');
+
   let recipeToView = event.target.closest('.popular');
-  const matchedData = recipeData.find(recipe => {
+
+  let matchedData = recipeData.find(recipe => {
     return recipe.id === parseInt(recipeToView.id);
   });
-  console.log(recipeToView.id);
-  console.log(matchedData);
-  return matchedData;
+
+  singleRecipeArea.innerHTML = '';
+
+  singleRecipeArea.innerHTML +=
+  `
+    <section class='single-recipe-view' id='singleRecipe'>
+      <div class='popular' id='${matchedData.id}'>
+        <header>
+          <h2>${matchedData.name}</h2>
+        </header>
+        <img src="${matchedData.image}">
+        <h1>Ingredients</h1>
+      </div>
+      <section>
+        <h1>Instructions</h1>
+        <p>${matchedData.instructions}</p>
+      </section>
+    </section>
+  `
+
+  // return matchedData;
 }
-// allRecipeArea.classList.toggle('hidden');
 
 // function displaySearchedRecipes(searchTerm) {
 //   const searchResults = recipeData.filter(recipe => {
@@ -95,8 +117,7 @@ function displayClickedRecipe(event) {
 // }
 
 function displayAllRecipes() {
-  //input: array of recipe objects
-  // output innerHTML recipe name and image
+  disableBtn(viewAllBtn);
   lowerMain.classList.toggle('hidden');
   allRecipeArea.classList.toggle('hidden');
   let allRecipes = recipeData.forEach(recipe => {
@@ -111,4 +132,24 @@ function displayAllRecipes() {
     `
   });
   return allRecipes;
+}
+
+function navigateToHome() {
+  if (!allRecipeArea.classList.contains('hidden') || (!singleRecipeArea.classList.contains('hidden'))) {
+    loadRandomInfo();
+    allRecipeArea.classList.toggle('hidden');
+    lowerMain.classList.toggle('hidden');
+  } else {
+    return;
+  } 
+}
+
+
+
+function disableBtn(buttonName) {
+  buttonName.disabled = true;
+}
+
+function enableBtn(buttonName) {
+  buttonName.disabled = false;
 }
