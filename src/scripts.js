@@ -41,6 +41,8 @@ const pageTitle = document.getElementById('pageTitle');
 
 const currentRecipePage = document.getElementById('currentRecipe');
 
+const searchValue = document.getElementById('searchValue');
+
 
 
 // Event Listeners
@@ -60,13 +62,17 @@ dinnerBtn.addEventListener('click', function () {
 sideBtn.addEventListener('click', function () {
   displayCategoryRecipes(event)
 });
-// searchRecipeForm.addEventListener('click', displaySearchedRecipes);
+searchRecipeForm.addEventListener('keypress', function(event) {
+  if (event.keyCode === 13) {
+    displaySearchedRecipes(event)
+  }
+});
 // addToMPBtn.addEventListener('click', addRecipeToMealPlan);
 homeBtn.addEventListener('click', navigateToHome);
 viewAllBtn.addEventListener('click', displayAllRecipes);
 
 randomRecArea.addEventListener('click', displayClickedPopular);
-randomRecArea.addEventListener('click', displayClickedRecipe);
+// randomRecArea.addEventListener('click', displayClickedRecipe);
 
 
 //functions
@@ -75,7 +81,6 @@ function getRandomIndex(array) {
 };
 
 function loadRandomInfo(recipeData) {
-  console.log(repository)
   randomRecArea.innerHTML = '';
   const randomIndex1 = recipeData[getRandomIndex(recipeData)];
   const randomIndex2 = recipeData[getRandomIndex(recipeData)];
@@ -124,6 +129,7 @@ function displayClickedPopular(event) {
     </section>
   `
   return matchedData;
+}
 
   function displayCategoryRecipes(event) {
     lowerMain.classList.add('hidden');
@@ -144,17 +150,30 @@ function displayClickedPopular(event) {
   });
 }
 
-// function displaySearchedRecipes(searchTerm) {
-//   const searchResults = recipeData.filter(recipe => {
-//     recipe.includes(searchTerm);
-//   });
-//   console.log(searchResults);
-// }
+function displaySearchedRecipes(event) {
+  event.preventDefault();
+  lowerMain.classList.add('hidden');
+  allRecipeArea.classList.add('hidden');
+  recipeByCat.classList.remove('hidden');
+  const searchTerm = searchValue.value
+  repository.filterByName(searchTerm);
+  const recipeList = repository.recipeList
+  recipeByCat.innerHTML = ''
+  pageTitle.innerText = `Recipes that include ${searchTerm}`
+  let filteredRecipes = recipeList.forEach(recipe => {
+    recipeByCat.innerHTML += `
+      <div class='recipe-listing' id=recipeListing1>
+        <img src='${recipe.image}' alt='${recipe.name}'>
+        <p>${recipe.name}</p>
+      </div>
+  `
+});
+}
 
 function displayAllRecipes() {
   disableBtn(viewAllBtn);
-  lowerMain.classList.toggle('hidden');
-  allRecipeArea.classList.toggle('hidden');
+  lowerMain.classList.add('hidden');
+  allRecipeArea.classList.remove('hidden');
   pageTitle.innerText = `All Recipes`
   let allRecipes = recipeData.forEach(recipe => {
     allRecipeArea.innerHTML +=
@@ -173,10 +192,9 @@ function displayAllRecipes() {
 function navigateToHome() {
     allRecipeArea.classList.toggle('hidden');
     lowerMain.classList.toggle('hidden');
-    loadRandomInfo();
+    searchValue.value = ''
+    loadRandomInfo(recipeData);
 }
-
-
 
 function disableBtn(buttonName) {
   buttonName.disabled = true;
