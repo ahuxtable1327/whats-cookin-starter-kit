@@ -131,6 +131,10 @@ function displayClickedPopular(event) {
   return matchedData;
 }
 
+// separate instructions in HTML
+// recipedata.map ( for each let recipe instructions = recipe.instructions
+// recipeInstruction.forEach --> return number and instruction)
+
   function displayCategoryRecipes(event) {
     lowerMain.classList.add('hidden');
     allRecipeArea.classList.add('hidden');
@@ -191,8 +195,9 @@ function displayAllRecipes() {
 }
 
 function navigateToHome() {
-    allRecipeArea.classList.toggle('hidden');
-    lowerMain.classList.toggle('hidden');
+    allRecipeArea.classList.add('hidden');
+    lowerMain.classList.remove('hidden');
+    singleRecipeArea.classList.add('hidden')
     searchValue.value = ''
     loadRandomInfo(recipeData);
 }
