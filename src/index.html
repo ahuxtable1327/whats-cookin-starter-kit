@@ -11,15 +11,13 @@
       <button class='home-btn' id='homeBtn'>🏠Home Page</button>
     </header>
     <main>
-
       <section class='category' id='category'>
-        <button class='breakfast-btn' id='breakfastBtn'>Breakfast</button>
-        <button class='lunch-btn' id='lunchBtn'>Lunch</button>
-        <button class='dinner-btn' id='dinnerBtn'>Dinner</button>
-        <button class='dessert-btn' id='dessertBtn'>Dessert</button>
+        <button class='breakfast-btn' id='breakfast'>Breakfast</button>
+        <button class='lunch-btn' id='lunch'>Lunch</button>
+        <button class='dinner-btn' id='dinner'>Dinner</button>
+        <button class='side-btn' id='side'>Sides</button>
         <button type="view-all" id='viewAllBtn'>View All Recipes</button>
       </section>
-
       <section class='lower-section' id='lowerSection'>
         <section class='search' id='searchArea'>
           <form class='search' id='search'>
@@ -28,50 +26,14 @@
         </section>
           <h1>Popular Recipes</h1>
         <section class='random-recipes' id='randomRecipes'>
-          <div class='popular-recipes' id='popularRecipesOne'>
-            <p>Random Recipe Desc</p>
-            <img src="https://spoonacular.com/recipeImages/595736-556x370.jpg" alt="chocolate-chip-cookies">
-          </div>
         </section>
       </section>
-
+      <h2 id='pageTitle'></h2>
       <section class='all-recipes hidden' id='allRecipes'>
       </section>
-
       <section class='recipe-by-cat hidden' id='recipeByCat'>
-        <h2>CATEGORY NAME</h2>
-        <div class='recipe-listing' id=recipeListing1>
-          <img src='https://spoonacular.com/recipeImages/595736-556x370.jpg' alt="cookies">
-          <p>Recipe Name</p>
-          <p>Brief Description...</p>
-        </div>
-        <div class='recipe-listing' id='recipeListing2'>
-          <img src='https://spoonacular.com/recipeImages/678353-556x370.jpg' alt='Maple Dijon Pork Chops'>
-          <p>Recipe Name</p>
-          <p>Brief Description...</p>
-        </div>
-        <div class='recipe-listing' id='recipeListing3'>
-          <img src='https://spoonacular.com/recipeImages/741603-556x370.jpeg' alt='Elvis Pancakes'>
-          <p>Recipe Name</p>
-          <p>Brief Description...</p>
-        </div>
       </section>
-
-      <section class='recipe-info hidden'>
-        <h2>Specific Recipe Info</h2>
-        <button type='add-meal-plan-btn' name='mealPlanBtn' id='addToMPBtn'>Add To Meal Plan</button>
-        <aside class='image-and-desc' id='imageDesc'>
-          <!-- <img src='image addy' alt='alt tag'> -->
-          <p>summary of recipe overlays image</p>
-        </aside>
-        <aside class='ingredients-prep' id='prepInstArea'>
-          <div class='ingredient-info' id='ingInfo'>
-            <p>ingredients go here</p>
-          </div>
-          <div class='prep-instructions' id='prepInst'>
-            <p>instructions go here</p>
-          </div>
-        </aside>
+      <section class='current-recipe hidden' id='currentRecipe'>
       </section>
 
       <section class='favorites hidden' id='favoritesArea'>

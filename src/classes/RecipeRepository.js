@@ -10,7 +10,7 @@ class RecipeRepository {
   filterByTag(tag) {
     this.recipes.reduce((acc, recipe) => {
       recipe.tags.filter(recTag => {
-        if (recTag === tag) {
+        if (recTag.includes(tag)) {
           acc.push(recipe);
         }
       })
