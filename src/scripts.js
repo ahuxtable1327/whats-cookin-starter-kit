@@ -3,12 +3,12 @@ import './styles.css';
 import Recipe from '../src/classes/Recipe';
 // import RecipeRepository from '../src/classes/RecipeRepository';
 import Ingredient from '../src/classes/Ingredient';
-import testRecipeData from '../src/data/testRecipeData';
-import testIngredientData from '../src/data/testIngredientData';
+// import testRecipeData from '../src/data/testRecipeData';
+// import testIngredientData from '../src/data/testIngredientData';
 // const data = testRecipeData;
 import recipeData from '../src/data/recipes';
 // const data = recipeData;
-// import ingredientsData from '../src/data/ingredients';
+import ingredientsData from '../src/data/ingredients';
 // import usersData from '../src/data/users';
 
 
@@ -32,7 +32,7 @@ const imageDesc = document.getElementById('imageDesc');
 const prepInstArea = document.getElementById('prepInstArea');
 const favoritesArea = document.getElementById('favoritesArea');
 const mealPlan = document.getElementById('mealPlan');
-const lowerMain = document.getElementById('lowerSection');
+const lowerMain = document.getElementById('lowerMain');
 const allRecipeArea = document.getElementById('allRecipes');
 
 
@@ -47,7 +47,7 @@ window.addEventListener('load', loadRandomInfo);
 // searchRecipeForm.addEventListener('click', displaySearchedRecipes);
 // addToMPBtn.addEventListener('click', addRecipeToMealPlan);
 viewAllBtn.addEventListener('click', displayAllRecipes);
-// randomRecArea.addEventListener('click', showRecipeInfo);
+randomRecArea.addEventListener('click', displayClickedRecipe);
 
 
 //functions
@@ -63,21 +63,29 @@ function loadRandomInfo() {
   randomRecArea.innerHTML +=
   `
    <section class='random-recipes' id='randomRecipes'>
-    <div class='popular-recipes-one' id='popularRecipesOne'>
+    <div class='popular' id='${recipeData[randomIndex1].id}'>
       <h3>${recipeData[randomIndex1].name}</h3>
-      <img src="${recipeData[randomIndex1].image}" alt="chocolate-chip-cookies">
+      <img src="${recipeData[randomIndex1].image}">
     </div>
-    <div class='popular-recipes-one' id='popularRecipesOne'>
+    <div class='popular' id='${recipeData[randomIndex2].id}'>
       <h3>${recipeData[randomIndex2].name}</h3>
-      <img src="${recipeData[randomIndex2].image}" alt="chocolate-chip-cookies">
+      <img src="${recipeData[randomIndex2].image}">
     </div>
    </section>
   `
 }
 
-// function displayClickedRecipe(event) {
-//   event.closest.innerHTML....
-// }
+function displayClickedRecipe(event) {
+  // console.log(recipeData)
+  let recipeToView = event.target.closest('.popular');
+  const matchedData = recipeData.find(recipe => {
+    return recipe.id === parseInt(recipeToView.id);
+  });
+  console.log(recipeToView.id);
+  console.log(matchedData);
+  return matchedData;
+}
+// allRecipeArea.classList.toggle('hidden');
 
 // function displaySearchedRecipes(searchTerm) {
 //   const searchResults = recipeData.filter(recipe => {
@@ -94,7 +102,7 @@ function displayAllRecipes() {
   let allRecipes = recipeData.forEach(recipe => {
     allRecipeArea.innerHTML +=
     `
-    <section class='all-recipes' id='allRecipes'>
+    <section class='all-recipes' id='allRecipes' ${recipe.id}>
       <div class='popular-recipes-one' id='popularRecipesOne'>
         <h3>${recipe.name}</h3>
         <img src="${recipe.image}" alt="chocolate-chip-cookies">
@@ -102,6 +110,5 @@ function displayAllRecipes() {
     </section>
     `
   });
-  console.log(allRecipes);
   return allRecipes;
 }
