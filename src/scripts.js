@@ -43,6 +43,7 @@ const ingredientsArea = document.getElementById('ingredients');
 const currentRecipePage = document.getElementById('currentRecipe');
 const popularTitle = document.getElementById('popularTitle');
 const searchValue = document.getElementById('searchValue');
+const searchOptions = document.getElementById('searchOptions')
 
 const main = document.getElementById('main');
 
@@ -168,28 +169,13 @@ function displayIngredients(result) {
   })
 }
 
-// separate instructions in HTML
-// recipedata.map ( for each let recipe instructions = recipe.instructions
-// recipeInstruction.forEach --> return number and instruction)
-
-
   function displayCategoryRecipes(event) {
     lowerMain.classList.add('hidden');
     allRecipeArea.classList.add('hidden');
     recipeByCat.classList.remove('hidden');
     const category = event.target.id;
     repository.filterByTag(category);
-    const tagRecipes = repository.recipeList
-    pageTitle.innerText = `${category} recipes`
-    recipeByCat.innerHTML = ''
-    let catRecipes = tagRecipes.forEach(recipe => {
-      recipeByCat.innerHTML += `
-        <div class='recipe recipe-listing' id=recipeListing1>
-          <img src='${recipe.image}' alt='${recipe.name}'>
-          <p>${recipe.name}</p>
-        </div>
-    `
-  });
+    displayRecipes();
 }
 
 function displaySearchedRecipes(event) {
@@ -197,11 +183,21 @@ function displaySearchedRecipes(event) {
   lowerMain.classList.add('hidden');
   allRecipeArea.classList.add('hidden');
   recipeByCat.classList.remove('hidden');
-  const searchTerm = searchValue.value.trim();
-  repository.filterByName(searchTerm);
-  repository.filterByIngredient(searchTerm);
-  const recipeList = repository.recipeList
   recipeByCat.innerHTML = ''
+  if (searchOptions.value === 'name') {
+    const searchTerm = searchValue.value.trim();
+    repository.filterByName(searchTerm);
+  } else {
+    const searchTerm = searchValue.value.trim();
+    repository.filterByIngredient(searchTerm);
+  }
+  displayRecipes();
+}
+
+function displayRecipes() {
+  recipeByCat.innerHTML = ''
+  const searchTerm = searchValue.value.trim();
+  const recipeList = repository.recipeList
   pageTitle.innerText = `Recipes that include ${searchTerm}`
   let filteredRecipes = recipeList.forEach(recipe => {
     recipeByCat.innerHTML += `
@@ -212,6 +208,9 @@ function displaySearchedRecipes(event) {
   `
 });
 }
+// if statement?? but what is the condition?
+// separate search bar for ingredients and name?
+// drop down to choose ingredients or name?
 
 function displayAllRecipes() {
   if (!randomRecArea.classList.contains('hidden')) {
@@ -243,12 +242,13 @@ function displayAllRecipes() {
     </section>
     `
   });
-
   return allRecipes;
 }
 
 
 function navigateToHome() {
+  searchValue.value = '';
+  searchOptions.value = 'empty';
   toggleHidden(popularTitle);
   if (!allRecipeArea.classList.contains('hidden')) {
     toggleHidden(allRecipeArea);
