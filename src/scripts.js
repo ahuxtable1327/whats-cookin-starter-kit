@@ -171,6 +171,7 @@ function displayCategoryRecipes(event) {
   const category = event.target.id;
   repository.filterByTag(category);
   displayRecipes();
+  pageTitle.innerHTML = `${category}`
 }
 
 function displaySearchedRecipes(event) {
@@ -244,6 +245,7 @@ function navigateToHome() {
   hidePageArea(singleRecipeArea);
   hidePageArea(instructionsArea);
   hidePageArea(ingredientsArea);
+  hidePageArea(recipeByCat);
   showPageArea(lowerMain);
   showPageArea(pageTitle)
   showPageArea(randomRecArea);
