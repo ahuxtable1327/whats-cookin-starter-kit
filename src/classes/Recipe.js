@@ -17,7 +17,6 @@ class Recipe {
       this.ingredientNames.push(nameMatch);
       return nameMatch;
     });
-    console.log(this.ingredientNames);
     return this.ingredientNames;
   }
 

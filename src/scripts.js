@@ -43,7 +43,7 @@ const ingredientsArea = document.getElementById('ingredients');
 const currentRecipePage = document.getElementById('currentRecipe');
 const searchValue = document.getElementById('searchValue');
 
-const main = document.getElementById('main');
+// const main = document.getElementById('main');
 
 // Event Listeners
 window.addEventListener('load', function() {
@@ -108,6 +108,7 @@ function displayClickedRecipe(event) {
   hidePageArea(recipeByCat)
   showPageArea(singleRecipeArea);
   showPageArea(instructionsArea);
+  showPageArea(ingredientsArea);
   let recipeToView = event.target.closest('.recipe');
   let matchedData = recipeData.find(recipe => {
     return recipe.id === parseInt(recipeToView.id);
@@ -125,8 +126,8 @@ function displayClickedRecipe(event) {
       </div>
       <h2>Instructions</h2>
   `
-  displayInstructions(result);
   displayIngredients(result);
+  displayInstructions(result);
   return matchedData;
 }
 
@@ -146,9 +147,8 @@ function displayInstructions(result) {
 }
 
 function displayIngredients(result) {
-  showPageArea(ingredientsArea);
+  result.listIngredients(ingredientsData);
   ingredientsArea.innerHTML = '';
-  console.log(result.listIngredients(ingredientsData));
   result.ingredientNames.forEach(ingName => {
     ingredientsArea.innerHTML +=
     `
@@ -156,7 +156,7 @@ function displayIngredients(result) {
         <p>${ingName.name}</p>
       </div>
     `
-  })
+  });
 }
 
 // separate instructions in HTML
@@ -165,10 +165,12 @@ function displayIngredients(result) {
 
 
   function displayCategoryRecipes(event) {
-    singleRecipeArea.classList.add('hidden')
-    lowerMain.classList.add('hidden');
-    allRecipeArea.classList.add('hidden');
-    recipeByCat.classList.remove('hidden');
+    hidePageArea(instructionsArea);
+    hidePageArea(ingredientsArea);
+    hidePageArea(allRecipeArea);
+    hidePageArea(singleRecipeArea);
+    hidePageArea(lowerMain);
+    showPageArea(recipeByCat);
     const category = event.target.id;
     repository.filterByTag(category);
     const tagRecipes = repository.recipeList
@@ -186,10 +188,13 @@ function displayIngredients(result) {
 
 function displaySearchedRecipes(event) {
   event.preventDefault();
-  singleRecipeArea.classList.add('hidden');
-  lowerMain.classList.add('hidden');
-  allRecipeArea.classList.add('hidden');
-  recipeByCat.classList.remove('hidden');
+  hidePageArea(allRecipeArea);
+  hidePageArea(ingredientsArea);
+  hidePageArea(instructionsArea);
+  hidePageArea(lowerMain);
+  hidePageArea(randomRecArea);
+  hidePageArea(singleRecipeArea);
+  showPageArea(recipeByCat);
   const searchTerm = searchValue.value.trim();
   repository.filterByName(searchTerm);
   repository.filterByIngredient(searchTerm);
@@ -203,17 +208,15 @@ function displaySearchedRecipes(event) {
         <p>${recipe.name}</p>
       </div>
   `
-});
-  hidePageArea(randomRecArea);
+  });
 }
 
 function displayAllRecipes() {
+  pageTitle.innerText = 'All Recipes'
   hidePageArea(randomRecArea);
   hidePageArea(singleRecipeArea);
   hidePageArea(instructionsArea);
   hidePageArea(ingredientsArea);
-  hidePageArea(lowerMain);
-  pageTitle.innerText = 'All Recipes'
   allRecipeArea.classList.remove('hidden');
   let allRecipes = recipeData.forEach(recipe => {
     allRecipeArea.innerHTML +=
