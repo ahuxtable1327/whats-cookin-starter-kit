@@ -41,12 +41,11 @@ const pageTitle = document.getElementById('pageTitle');
 const instructionsArea = document.getElementById('instructions');
 const ingredientsArea = document.getElementById('ingredients');
 const currentRecipePage = document.getElementById('currentRecipe');
-const popularTitle = document.getElementById('popularTitle');
 const searchValue = document.getElementById('searchValue');
 const searchOptions = document.getElementById('searchOptions')
 const error = document.getElementById('error')
 
-const main = document.getElementById('main');
+// const main = document.getElementById('main');
 
 // Event Listeners
 window.addEventListener('load', function() {
@@ -74,9 +73,8 @@ searchRecipeForm.addEventListener('keypress', function() {
 homeBtn.addEventListener('click', navigateToHome);
 randomRecArea.addEventListener('click', displayClickedRecipe)
 viewAllBtn.addEventListener('click', displayAllRecipes);
-
-
-// allRecipeArea.addEventListener('click', displayClickedRecipe);
+allRecipeArea.addEventListener('click', displayClickedRecipe);
+recipeByCat.addEventListener('click', displayClickedRecipe);
 
 
 //global variables
@@ -88,12 +86,12 @@ function getRandomIndex(array) {
 };
 
 function loadRandomInfo(recipeData) {
+  pageTitle.innerHTML = 'Popular Recipes';
   const randomIndex1 = recipeData[getRandomIndex(recipeData)];
   const randomIndex2 = recipeData[getRandomIndex(recipeData)];
   randomRecArea.innerHTML = '';
   randomRecArea.innerHTML +=
   `
-   <section class='recipe random-recipes' id='randomRecipes'>
     <div class='recipe popular' id='${randomIndex1.id}'>
       <h3>${randomIndex1.name}</h3>
       <img src="${randomIndex1.image}" alt="${randomIndex1.name}">
@@ -102,44 +100,36 @@ function loadRandomInfo(recipeData) {
       <h3>${randomIndex2.name}</h3>
       <img src="${randomIndex2.image}" alt="${randomIndex2.name}">
     </div>
-   </section>
   `
 }
   // on window load, still need a random user to be logged in
 
 function displayClickedRecipe(event) {
-  toggleHidden(lowerMain);
-  toggleHidden(singleRecipeArea);
-  toggleHidden(instructionsArea);
-  toggleHidden(popularTitle);
-
-  if (!allRecipeArea.classList.contains('hidden')) {
-    toggleHidden(allRecipeArea);
-  }
-
+  hidePageArea(allRecipeArea);
+  hidePageArea(lowerMain);
+  hidePageArea(recipeByCat)
+  showPageArea(singleRecipeArea);
+  showPageArea(instructionsArea);
+  showPageArea(ingredientsArea);
   let recipeToView = event.target.closest('.recipe');
-
   let matchedData = recipeData.find(recipe => {
     return recipe.id === parseInt(recipeToView.id);
   });
-  // console.log(matchedData);
   result = new Recipe(matchedData);
-
+  pageTitle.innerHTML = `${result.name}`
   singleRecipeArea.innerHTML = '';
   singleRecipeArea.innerHTML +=
   `
-    <section class='recipe single-recipe-view' id='singleRecipe'>
       <div class='recipe popular' id='${matchedData.id}'>
         <header>
           <h2>${matchedData.name}</h2>
         </header>
         <img src="${matchedData.image}">
       </div>
-    </section>
-     <h2>Instructions</h2>
+      <h2>Instructions</h2>
   `
-  displayInstructions(result);
   displayIngredients(result);
+  displayInstructions(result);
   return matchedData;
 }
 
@@ -151,29 +141,33 @@ function displayInstructions(result) {
   instToDisplay.forEach(inst => {
     instructionsArea.innerHTML +=
     `
-    <p>${inst.instruction}</p>
+    <div class='instructions' id='${inst.id}'>
+      <p>${inst.instruction}</p>
+    </div>
     `
   });
 }
 
 function displayIngredients(result) {
-  toggleHidden(ingredientsArea);
+  result.listIngredients(ingredientsData);
   ingredientsArea.innerHTML = '';
-  console.log(result.listIngredients(ingredientsData));
   result.ingredientNames.forEach(ingName => {
     ingredientsArea.innerHTML +=
     `
-      <section class='ingredients' id='ingredients'>
+      <div class='ingredients' id='${ingName.id}'>
         <p>${ingName.name}</p>
-      </section>
+      </div>
     `
-  })
+  });
 }
 
 function displayCategoryRecipes(event) {
-  lowerMain.classList.add('hidden');
-  allRecipeArea.classList.add('hidden');
-  recipeByCat.classList.remove('hidden');
+  hidePageArea(instructionsArea);
+  hidePageArea(ingredientsArea);
+  hidePageArea(allRecipeArea);
+  hidePageArea(singleRecipeArea);
+  hidePageArea(lowerMain);
+  showPageArea(recipeByCat);
   const category = event.target.id;
   repository.filterByTag(category);
   displayRecipes();
@@ -181,6 +175,13 @@ function displayCategoryRecipes(event) {
 
 function displaySearchedRecipes(event) {
   event.preventDefault();
+  hidePageArea(allRecipeArea);
+  hidePageArea(ingredientsArea);
+  hidePageArea(instructionsArea);
+  hidePageArea(lowerMain);
+  hidePageArea(randomRecArea);
+  hidePageArea(singleRecipeArea);
+  showPageArea(recipeByCat);
   recipeByCat.innerHTML = ''
   if (searchOptions.value === 'empty' || searchValue.value === '') {
     error.innerText = 'These fields cannot be empty';
@@ -196,95 +197,63 @@ function displaySearchedRecipes(event) {
 }
 
 function displayRecipes() {
-  lowerMain.classList.add('hidden');
-  allRecipeArea.classList.add('hidden');
-  recipeByCat.classList.remove('hidden');
+  hidePageArea(ingredientsArea);
+  hidePageArea(instructionsArea)
+  hidePageArea(lowerMain);
+  hidePageArea(allRecipeArea);
+  hidePageArea(singleRecipeArea);
+  showPageArea(recipeByCat);
   recipeByCat.innerHTML = ''
   const searchTerm = searchValue.value.trim();
   const recipeList = repository.recipeList
   pageTitle.innerText = `Recipes that include ${searchTerm}`
   let filteredRecipes = recipeList.forEach(recipe => {
     recipeByCat.innerHTML += `
-      <div class='recipe recipe-listing' id=recipeListing1>
+      <div class='recipe recipe-listing' id='${recipe.id}'>
         <img src='${recipe.image}' alt='${recipe.name}'>
         <p>${recipe.name}</p>
       </div>
   `
-});
+  });
 }
 
 function displayAllRecipes() {
-  if (!randomRecArea.classList.contains('hidden')) {
-    toggleHidden(randomRecArea);
-  }
-  if (!singleRecipeArea.classList.contains('hidden')) {
-    toggleHidden(singleRecipeArea);
-  }
-  if (!instructionsArea.classList.contains('hidden')) {
-    toggleHidden(instructionsArea);
-  }
-  if (!ingredientsArea.classList.contains('hidden')) {
-    toggleHidden(ingredientsArea);
-  }
-
-  toggleHidden(lowerMain)
-
-  pageTitle.innerText = `All Recipes`
+  pageTitle.innerText = 'All Recipes'
+  hidePageArea(randomRecArea);
+  hidePageArea(singleRecipeArea);
+  hidePageArea(instructionsArea);
+  hidePageArea(ingredientsArea);
   allRecipeArea.classList.remove('hidden');
-  // allRecipeArea.addEventListener('click', displayClickedRecipe);
   let allRecipes = recipeData.forEach(recipe => {
     allRecipeArea.innerHTML +=
     `
-    <section class='all-recipes' id='${recipe.id}'>
-      <div class='popular-recipes-one' id='${recipe.id}'>
+      <div class='recipe popular-recipes-one' id='${recipe.id}'>
         <h3>${recipe.name}</h3>
         <img src="${recipe.image}" alt="chocolate-chip-cookies">
       </div>
-    </section>
     `
   });
   return allRecipes;
 }
 
-
 function navigateToHome() {
   searchValue.value = '';
   searchOptions.value = 'empty';
   error.innerText = '';
-  toggleHidden(popularTitle);
-  if (!allRecipeArea.classList.contains('hidden')) {
-    toggleHidden(allRecipeArea);
-    enableBtn(viewAllBtn);
-  }
-  if (!singleRecipeArea.classList.contains('hidden')) {
-    toggleHidden(singleRecipeArea);
-  }
-  if (!instructionsArea.classList.contains('hidden')) {
-    toggleHidden(instructionsArea);
-  }
-  if (lowerMain.classList.toggle('hidden')) {
-    toggleHidden(lowerMain);
-  }
-  if (!pageTitle.classList.contains('hidden')) {
-    toggleHidden(pageTitle);
-  }
-  if (!ingredientsArea.classList.contains('hidden')) {
-    toggleHidden(ingredientsArea);
-  }
+  hidePageArea(allRecipeArea);
+  hidePageArea(singleRecipeArea);
+  hidePageArea(instructionsArea);
+  hidePageArea(ingredientsArea);
+  showPageArea(lowerMain);
+  showPageArea(pageTitle)
+  showPageArea(randomRecArea);
   loadRandomInfo(recipeData);
 }
 
-
-
-
-function toggleHidden(pageArea) {
-  pageArea.classList.toggle('hidden');
+function hidePageArea(pageArea) {
+  pageArea.classList.add('hidden');
 }
 
-function disableBtn(buttonName) {
-  buttonName.disabled = true;
-}
-
-function enableBtn(buttonName) {
-  buttonName.disabled = false;
+function showPageArea(pageArea) {
+  pageArea.classList.remove('hidden');
 }
