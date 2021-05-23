@@ -89,6 +89,9 @@ function loadRandomInfo(recipeData) {
   pageTitle.innerHTML = 'Popular Recipes';
   const randomIndex1 = recipeData[getRandomIndex(recipeData)];
   const randomIndex2 = recipeData[getRandomIndex(recipeData)];
+  if (randomIndex1 === randomIndex2) {
+    randomIndex2 = randomIndex2 += 1;
+  }
   randomRecArea.innerHTML = '';
   randomRecArea.innerHTML +=
   `
@@ -118,7 +121,8 @@ function displayClickedRecipe(event) {
     return recipe.id === parseInt(recipeToView.id);
   });
   result = new Recipe(matchedData);
-  // pageTitle.innerHTML = `${result.name}`
+  displayIngredients(result);
+  displayInstructions(result);
   singleRecipeArea.innerHTML = '';
   singleRecipeArea.innerHTML +=
   `
@@ -128,10 +132,9 @@ function displayClickedRecipe(event) {
         </header>
         <img src="${matchedData.image}">
       </div>
+      <h3>Estimated Total Recipe Cost: $${result.calculateRecipeCost()}</h3>
       <h2>Instructions</h2>
   `
-  displayIngredients(result);
-  displayInstructions(result);
   return matchedData;
 }
 
@@ -157,11 +160,12 @@ function displayIngredients(result) {
     ingredientsArea.innerHTML +=
     `
       <div class='ingredients' id='${ingName.id}'>
-        <p>${ingName.name}</p>
+        <p>${ingName.name}, ${ingName.amount} ${ingName.unit} - est cost: $${ingName.estimatedCostInCents/100}</p>
       </div>
     `
   });
 }
+
 
 function displayCategoryRecipes(event) {
   hidePageArea(instructionsArea);
@@ -227,6 +231,7 @@ function displayAllRecipes() {
   hidePageArea(singleRecipeArea);
   hidePageArea(instructionsArea);
   hidePageArea(ingredientsArea);
+  hidePageArea(lowerMain);
   showPageArea(pageTitle);
   pageTitle.innerText = 'All Recipes'
   allRecipeArea.classList.remove('hidden');
