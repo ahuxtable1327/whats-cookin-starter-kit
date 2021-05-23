@@ -41,7 +41,6 @@ const pageTitle = document.getElementById('pageTitle');
 const instructionsArea = document.getElementById('instructions');
 const ingredientsArea = document.getElementById('ingredients');
 const currentRecipePage = document.getElementById('currentRecipe');
-const popularTitle = document.getElementById('popularTitle');
 const searchValue = document.getElementById('searchValue');
 
 const main = document.getElementById('main');
@@ -73,6 +72,7 @@ homeBtn.addEventListener('click', navigateToHome);
 randomRecArea.addEventListener('click', displayClickedRecipe)
 viewAllBtn.addEventListener('click', displayAllRecipes);
 allRecipeArea.addEventListener('click', displayClickedRecipe);
+recipeByCat.addEventListener('click', displayClickedRecipe);
 
 
 //global variables
@@ -84,6 +84,7 @@ function getRandomIndex(array) {
 };
 
 function loadRandomInfo(recipeData) {
+  pageTitle.innerHTML = 'Popular Recipes';
   const randomIndex1 = recipeData[getRandomIndex(recipeData)];
   const randomIndex2 = recipeData[getRandomIndex(recipeData)];
   randomRecArea.innerHTML = '';
@@ -104,18 +105,15 @@ function loadRandomInfo(recipeData) {
 function displayClickedRecipe(event) {
   hidePageArea(allRecipeArea);
   hidePageArea(lowerMain);
-  hidePageArea(popularTitle);
+  hidePageArea(recipeByCat)
   showPageArea(singleRecipeArea);
   showPageArea(instructionsArea);
-
   let recipeToView = event.target.closest('.recipe');
-
   let matchedData = recipeData.find(recipe => {
     return recipe.id === parseInt(recipeToView.id);
   });
-
   result = new Recipe(matchedData);
-
+  pageTitle.innerHTML = `${result.name}`
   singleRecipeArea.innerHTML = '';
   singleRecipeArea.innerHTML +=
   `
@@ -167,6 +165,7 @@ function displayIngredients(result) {
 
 
   function displayCategoryRecipes(event) {
+    singleRecipeArea.classList.add('hidden')
     lowerMain.classList.add('hidden');
     allRecipeArea.classList.add('hidden');
     recipeByCat.classList.remove('hidden');
@@ -177,7 +176,7 @@ function displayIngredients(result) {
     recipeByCat.innerHTML = ''
     let catRecipes = tagRecipes.forEach(recipe => {
       recipeByCat.innerHTML += `
-        <div class='recipe recipe-listing' id=recipeListing1>
+        <div class='recipe recipe-listing' id='${recipe.id}'>
           <img src='${recipe.image}' alt='${recipe.name}'>
           <p>${recipe.name}</p>
         </div>
@@ -187,6 +186,7 @@ function displayIngredients(result) {
 
 function displaySearchedRecipes(event) {
   event.preventDefault();
+  singleRecipeArea.classList.add('hidden');
   lowerMain.classList.add('hidden');
   allRecipeArea.classList.add('hidden');
   recipeByCat.classList.remove('hidden');
@@ -198,12 +198,13 @@ function displaySearchedRecipes(event) {
   pageTitle.innerText = `Recipes that include ${searchTerm}`
   let filteredRecipes = recipeList.forEach(recipe => {
     recipeByCat.innerHTML += `
-      <div class='recipe recipe-listing' id=recipeListing1>
+      <div class='recipe recipe-listing' id='${recipe.id}'>
         <img src='${recipe.image}' alt='${recipe.name}'>
         <p>${recipe.name}</p>
       </div>
   `
 });
+  hidePageArea(randomRecArea);
 }
 
 function displayAllRecipes() {
@@ -212,7 +213,7 @@ function displayAllRecipes() {
   hidePageArea(instructionsArea);
   hidePageArea(ingredientsArea);
   hidePageArea(lowerMain);
-  pageTitle.innerText = `All Recipes`
+  pageTitle.innerText = 'All Recipes'
   allRecipeArea.classList.remove('hidden');
   let allRecipes = recipeData.forEach(recipe => {
     allRecipeArea.innerHTML +=
@@ -228,12 +229,12 @@ function displayAllRecipes() {
 }
 
 function navigateToHome() {
-  hidePageArea(popularTitle);
   hidePageArea(allRecipeArea);
   hidePageArea(singleRecipeArea);
   hidePageArea(instructionsArea);
   hidePageArea(ingredientsArea);
   showPageArea(lowerMain);
+  showPageArea(randomRecArea);
   loadRandomInfo(recipeData);
 }
 
@@ -243,12 +244,4 @@ function hidePageArea(pageArea) {
 
 function showPageArea(pageArea) {
   pageArea.classList.remove('hidden');
-}
-
-function disableBtn(buttonName) {
-  buttonName.disabled = true;
-}
-
-function enableBtn(buttonName) {
-  buttonName.disabled = false;
 }
