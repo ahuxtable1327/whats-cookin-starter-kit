@@ -41,7 +41,7 @@ const pageTitle = document.getElementById('pageTitle');
 const instructionsArea = document.getElementById('instructions');
 const ingredientsArea = document.getElementById('ingredients');
 const currentRecipePage = document.getElementById('currentRecipe');
-
+const popularTitle = document.getElementById('popularTitle');
 const searchValue = document.getElementById('searchValue');
 
 const main = document.getElementById('main');
@@ -109,8 +109,9 @@ function displayClickedRecipe(event) {
   toggleHidden(lowerMain);
   toggleHidden(singleRecipeArea);
   toggleHidden(instructionsArea);
-  if
-  (!allRecipeArea.classList.contains('hidden')) {
+  toggleHidden(popularTitle);
+
+  if (!allRecipeArea.classList.contains('hidden')) {
     toggleHidden(allRecipeArea);
   }
 
@@ -140,7 +141,8 @@ function displayClickedRecipe(event) {
   return matchedData;
 }
 
-//I refactored the returnInstructions method in Recipe.js
+// I refactored the returnInstructions method in Recipe.js
+//and not so elegant with the HTML so these are currently separate chunks
 function displayInstructions(result) {
   let instToDisplay = result.returnInstructions();
   instructionsArea.innerHTML = '';
@@ -212,11 +214,17 @@ function displaySearchedRecipes(event) {
 }
 
 function displayAllRecipes() {
+  if (!randomRecArea.classList.contains('hidden')) {
+    toggleHidden(randomRecArea);
+  }
   if (!singleRecipeArea.classList.contains('hidden')) {
     toggleHidden(singleRecipeArea);
   }
   if (!instructionsArea.classList.contains('hidden')) {
     toggleHidden(instructionsArea);
+  }
+  if (!ingredientsArea.classList.contains('hidden')) {
+    toggleHidden(ingredientsArea);
   }
 
   toggleHidden(lowerMain)
@@ -241,6 +249,7 @@ function displayAllRecipes() {
 
 
 function navigateToHome() {
+  toggleHidden(popularTitle);
   if (!allRecipeArea.classList.contains('hidden')) {
     toggleHidden(allRecipeArea);
     enableBtn(viewAllBtn);
@@ -256,6 +265,9 @@ function navigateToHome() {
   }
   if (!pageTitle.classList.contains('hidden')) {
     toggleHidden(pageTitle);
+  }
+  if (!ingredientsArea.classList.contains('hidden')) {
+    toggleHidden(ingredientsArea);
   }
   loadRandomInfo(recipeData);
 }
