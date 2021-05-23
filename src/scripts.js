@@ -42,6 +42,8 @@ const instructionsArea = document.getElementById('instructions');
 const ingredientsArea = document.getElementById('ingredients');
 const currentRecipePage = document.getElementById('currentRecipe');
 const searchValue = document.getElementById('searchValue');
+const searchOptions = document.getElementById('searchOptions')
+const error = document.getElementById('error')
 
 // const main = document.getElementById('main');
 
@@ -62,7 +64,7 @@ dinnerBtn.addEventListener('click', function () {
 sideBtn.addEventListener('click', function () {
   displayCategoryRecipes(event)
 });
-searchRecipeForm.addEventListener('keypress', function(event) {
+searchRecipeForm.addEventListener('keypress', function() {
   if (event.keyCode === 13) {
     displaySearchedRecipes(event)
   }
@@ -159,31 +161,16 @@ function displayIngredients(result) {
   });
 }
 
-// separate instructions in HTML
-// recipedata.map ( for each let recipe instructions = recipe.instructions
-// recipeInstruction.forEach --> return number and instruction)
-
-
-  function displayCategoryRecipes(event) {
-    hidePageArea(instructionsArea);
-    hidePageArea(ingredientsArea);
-    hidePageArea(allRecipeArea);
-    hidePageArea(singleRecipeArea);
-    hidePageArea(lowerMain);
-    showPageArea(recipeByCat);
-    const category = event.target.id;
-    repository.filterByTag(category);
-    const tagRecipes = repository.recipeList
-    pageTitle.innerText = `${category} recipes`
-    recipeByCat.innerHTML = ''
-    let catRecipes = tagRecipes.forEach(recipe => {
-      recipeByCat.innerHTML += `
-        <div class='recipe recipe-listing' id='${recipe.id}'>
-          <img src='${recipe.image}' alt='${recipe.name}'>
-          <p>${recipe.name}</p>
-        </div>
-    `
-  });
+function displayCategoryRecipes(event) {
+  hidePageArea(instructionsArea);
+  hidePageArea(ingredientsArea);
+  hidePageArea(allRecipeArea);
+  hidePageArea(singleRecipeArea);
+  hidePageArea(lowerMain);
+  showPageArea(recipeByCat);
+  const category = event.target.id;
+  repository.filterByTag(category);
+  displayRecipes();
 }
 
 function displaySearchedRecipes(event) {
@@ -195,11 +182,30 @@ function displaySearchedRecipes(event) {
   hidePageArea(randomRecArea);
   hidePageArea(singleRecipeArea);
   showPageArea(recipeByCat);
-  const searchTerm = searchValue.value.trim();
-  repository.filterByName(searchTerm);
-  repository.filterByIngredient(searchTerm);
-  const recipeList = repository.recipeList
   recipeByCat.innerHTML = ''
+  if (searchOptions.value === 'empty' || searchValue.value === '') {
+    error.innerText = 'These fields cannot be empty';
+  } else if (searchOptions.value === 'ingredients') {
+    const searchTerm = searchValue.value.trim();
+    repository.filterByIngredient(searchTerm);
+    displayRecipes();
+  } else {
+    const searchTerm = searchValue.value.trim();
+    repository.filterByName(searchTerm);
+    displayRecipes();
+  }
+}
+
+function displayRecipes() {
+  hidePageArea(ingredientsArea);
+  hidePageArea(instructionsArea)
+  hidePageArea(lowerMain);
+  hidePageArea(allRecipeArea);
+  hidePageArea(singleRecipeArea);
+  showPageArea(recipeByCat);
+  recipeByCat.innerHTML = ''
+  const searchTerm = searchValue.value.trim();
+  const recipeList = repository.recipeList
   pageTitle.innerText = `Recipes that include ${searchTerm}`
   let filteredRecipes = recipeList.forEach(recipe => {
     recipeByCat.innerHTML += `
@@ -227,16 +233,19 @@ function displayAllRecipes() {
       </div>
     `
   });
-
   return allRecipes;
 }
 
 function navigateToHome() {
+  searchValue.value = '';
+  searchOptions.value = 'empty';
+  error.innerText = '';
   hidePageArea(allRecipeArea);
   hidePageArea(singleRecipeArea);
   hidePageArea(instructionsArea);
   hidePageArea(ingredientsArea);
   showPageArea(lowerMain);
+  showPageArea(pageTitle)
   showPageArea(randomRecArea);
   loadRandomInfo(recipeData);
 }

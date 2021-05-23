@@ -24,7 +24,14 @@
       <section class='lower-main' id='lowerMain'>
         <section class='search' id='searchArea'>
           <form class='search' id='search'>
+            <label for='search-options'>Search by:</label>
+              <select name='search' id='searchOptions'>
+                <option value='empty'></option>
+                <option value='name'>Recipe Name</option>
+                <option value='ingredients'>Ingredients</option>
+              </select>
             <input type='text' placeholder='Find a Recipe' id='searchValue'>
+            <div class='error' id='error'></div>
           </form>
         </section>
 
