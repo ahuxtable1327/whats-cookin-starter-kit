@@ -107,16 +107,18 @@ function loadRandomInfo(recipeData) {
 function displayClickedRecipe(event) {
   hidePageArea(allRecipeArea);
   hidePageArea(lowerMain);
-  hidePageArea(recipeByCat)
+  hidePageArea(recipeByCat);
+  hidePageArea(randomRecArea);
   showPageArea(singleRecipeArea);
   showPageArea(instructionsArea);
   showPageArea(ingredientsArea);
+  hidePageArea(pageTitle);
   let recipeToView = event.target.closest('.recipe');
   let matchedData = recipeData.find(recipe => {
     return recipe.id === parseInt(recipeToView.id);
   });
   result = new Recipe(matchedData);
-  pageTitle.innerHTML = `${result.name}`
+  // pageTitle.innerHTML = `${result.name}`
   singleRecipeArea.innerHTML = '';
   singleRecipeArea.innerHTML +=
   `
@@ -183,6 +185,7 @@ function displaySearchedRecipes(event) {
   hidePageArea(randomRecArea);
   hidePageArea(singleRecipeArea);
   showPageArea(recipeByCat);
+  showPageArea(pageTitle);
   recipeByCat.innerHTML = ''
   if (searchOptions.value === 'empty' || searchValue.value === '') {
     error.innerText = 'These fields cannot be empty';
@@ -204,6 +207,7 @@ function displayRecipes() {
   hidePageArea(allRecipeArea);
   hidePageArea(singleRecipeArea);
   showPageArea(recipeByCat);
+  showPageArea(pageTitle);
   recipeByCat.innerHTML = ''
   const searchTerm = searchValue.value.trim();
   const recipeList = repository.recipeList
@@ -219,11 +223,12 @@ function displayRecipes() {
 }
 
 function displayAllRecipes() {
-  pageTitle.innerText = 'All Recipes'
   hidePageArea(randomRecArea);
   hidePageArea(singleRecipeArea);
   hidePageArea(instructionsArea);
   hidePageArea(ingredientsArea);
+  showPageArea(pageTitle);
+  pageTitle.innerText = 'All Recipes'
   allRecipeArea.classList.remove('hidden');
   let allRecipes = recipeData.forEach(recipe => {
     allRecipeArea.innerHTML +=
@@ -247,8 +252,8 @@ function navigateToHome() {
   hidePageArea(ingredientsArea);
   hidePageArea(recipeByCat);
   showPageArea(lowerMain);
-  showPageArea(pageTitle)
   showPageArea(randomRecArea);
+  showPageArea(pageTitle);
   loadRandomInfo(recipeData);
 }
 
