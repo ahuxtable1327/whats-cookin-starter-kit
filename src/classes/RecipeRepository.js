@@ -31,6 +31,7 @@ class RecipeRepository {
 
   }
   filterByIngredient(ingredient) {
+    this.recipeList =[];
     let ingredientObj = this.ingredients.find(ing => {
       return ing.name === ingredient
       });

@@ -184,12 +184,13 @@ function displaySearchedRecipes(event) {
   allRecipeArea.classList.add('hidden');
   recipeByCat.classList.remove('hidden');
   recipeByCat.innerHTML = ''
+  if (searchOptions.value === 'ingredients') {
+    const searchTerm = searchValue.value.trim();
+    repository.filterByIngredient(searchTerm);
+  }
   if (searchOptions.value === 'name') {
     const searchTerm = searchValue.value.trim();
     repository.filterByName(searchTerm);
-  } else {
-    const searchTerm = searchValue.value.trim();
-    repository.filterByIngredient(searchTerm);
   }
   displayRecipes();
 }
