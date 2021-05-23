@@ -44,6 +44,7 @@ const currentRecipePage = document.getElementById('currentRecipe');
 const popularTitle = document.getElementById('popularTitle');
 const searchValue = document.getElementById('searchValue');
 const searchOptions = document.getElementById('searchOptions')
+const error = document.getElementById('error')
 
 const main = document.getElementById('main');
 
@@ -64,7 +65,7 @@ dinnerBtn.addEventListener('click', function () {
 sideBtn.addEventListener('click', function () {
   displayCategoryRecipes(event)
 });
-searchRecipeForm.addEventListener('keypress', function(event) {
+searchRecipeForm.addEventListener('keypress', function() {
   if (event.keyCode === 13) {
     displaySearchedRecipes(event)
   }
@@ -169,33 +170,35 @@ function displayIngredients(result) {
   })
 }
 
-  function displayCategoryRecipes(event) {
-    lowerMain.classList.add('hidden');
-    allRecipeArea.classList.add('hidden');
-    recipeByCat.classList.remove('hidden');
-    const category = event.target.id;
-    repository.filterByTag(category);
-    displayRecipes();
+function displayCategoryRecipes(event) {
+  lowerMain.classList.add('hidden');
+  allRecipeArea.classList.add('hidden');
+  recipeByCat.classList.remove('hidden');
+  const category = event.target.id;
+  repository.filterByTag(category);
+  displayRecipes();
 }
 
 function displaySearchedRecipes(event) {
   event.preventDefault();
-  lowerMain.classList.add('hidden');
-  allRecipeArea.classList.add('hidden');
-  recipeByCat.classList.remove('hidden');
   recipeByCat.innerHTML = ''
-  if (searchOptions.value === 'ingredients') {
+  if (searchOptions.value === 'empty' || searchValue.value === '') {
+    error.innerText = 'These fields cannot be empty';
+  } else if (searchOptions.value === 'ingredients') {
     const searchTerm = searchValue.value.trim();
     repository.filterByIngredient(searchTerm);
-  }
-  if (searchOptions.value === 'name') {
+    displayRecipes();
+  } else {
     const searchTerm = searchValue.value.trim();
     repository.filterByName(searchTerm);
+    displayRecipes();
   }
-  displayRecipes();
 }
 
 function displayRecipes() {
+  lowerMain.classList.add('hidden');
+  allRecipeArea.classList.add('hidden');
+  recipeByCat.classList.remove('hidden');
   recipeByCat.innerHTML = ''
   const searchTerm = searchValue.value.trim();
   const recipeList = repository.recipeList
@@ -209,9 +212,6 @@ function displayRecipes() {
   `
 });
 }
-// if statement?? but what is the condition?
-// separate search bar for ingredients and name?
-// drop down to choose ingredients or name?
 
 function displayAllRecipes() {
   if (!randomRecArea.classList.contains('hidden')) {
@@ -250,6 +250,7 @@ function displayAllRecipes() {
 function navigateToHome() {
   searchValue.value = '';
   searchOptions.value = 'empty';
+  error.innerText = '';
   toggleHidden(popularTitle);
   if (!allRecipeArea.classList.contains('hidden')) {
     toggleHidden(allRecipeArea);
