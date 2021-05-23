@@ -3,16 +3,18 @@ import './styles.css';
 import Recipe from '../src/classes/Recipe';
 import RecipeRepository from '../src/classes/RecipeRepository';
 import Ingredient from '../src/classes/Ingredient';
+import User from '../src/classes/User';
 
 import testRecipeData from '../src/data/testRecipeData';
 import testIngredientData from '../src/data/testIngredientData';
 
 import recipeData from '../src/data/recipes';
-
 import ingredientsData from '../src/data/ingredients';
-// import usersData from '../src/data/users';
+import userData from '../src/data/users';
 
 const repository = new RecipeRepository(recipeData, ingredientsData);
+const randomUser = userData[getRandomIndex(userData)];
+const user = new User(randomUser)
 //DOM variables
   //buttons and form
 const favoritesBtn = document.getElementById('favBtn');
@@ -51,7 +53,7 @@ const error = document.getElementById('error')
 window.addEventListener('load', function() {
   loadRandomInfo(recipeData);
 });
-// favoritesBtn.addEventListener('click', showFavRecipes);
+favoritesBtn.addEventListener('click', displayFavorites);
 breakfastBtn.addEventListener('click', function () {
   displayCategoryRecipes(event)
 });
@@ -75,6 +77,9 @@ randomRecArea.addEventListener('click', displayClickedRecipe)
 viewAllBtn.addEventListener('click', displayAllRecipes);
 allRecipeArea.addEventListener('click', displayClickedRecipe);
 recipeByCat.addEventListener('click', displayClickedRecipe);
+singleRecipeArea.addEventListener('click', function() {
+  addRecipeToFavorites(event)
+})
 
 
 //global variables
@@ -86,11 +91,12 @@ function getRandomIndex(array) {
 };
 
 function loadRandomInfo(recipeData) {
+  console.log(user);
   pageTitle.innerHTML = 'Popular Recipes';
   const randomIndex1 = recipeData[getRandomIndex(recipeData)];
   const randomIndex2 = recipeData[getRandomIndex(recipeData)];
   if (randomIndex1 === randomIndex2) {
-    randomIndex2 = randomIndex2 += 1;
+    randomIndex2 = (randomIndex2 += 1);
   }
   randomRecArea.innerHTML = '';
   randomRecArea.innerHTML +=
@@ -126,7 +132,8 @@ function displayClickedRecipe(event) {
   singleRecipeArea.innerHTML = '';
   singleRecipeArea.innerHTML +=
   `
-      <div class='recipe popular' id='${matchedData.id}'>
+      <div class='current-recipe' id='${matchedData.id}'>
+        <button class='add-to-fav-btn' id='addToFavBtn'>Add to favorites</button>
         <header>
           <h2>${matchedData.name}</h2>
         </header>
@@ -166,7 +173,37 @@ function displayIngredients(result) {
   });
 }
 
+function addRecipeToFavorites(event) {
+  event.target.closest('btn');
+  const firstChild = singleRecipeArea.firstElementChild;
+  const recipeToAdd = repository.recipes.find(recipe => recipe.id === parseInt(firstChild.id));
+  user.addFavorite(recipeToAdd);
+  console.log(user.favoriteRecipes);
+};
 
+function displayFavorites() {
+  console.log('working')
+  hidePageArea(ingredientsArea);
+  hidePageArea(instructionsArea)
+  hidePageArea(lowerMain);
+  hidePageArea(allRecipeArea);
+  hidePageArea(singleRecipeArea);
+  hidePageArea(randomRecArea);
+  showPageArea(recipeByCat);
+  showPageArea(pageTitle);
+  recipeByCat.innerHTML = ''
+  const favoriteRecipes = user.favoriteRecipes;
+  pageTitle.innerText = `${user.name}'s Favorite Recipes`
+  let filteredRecipes = favoriteRecipes.forEach(recipe => {
+    recipeByCat.innerHTML += `
+      <div class='recipe recipe-listing' id='${recipe.id}'>
+        <img src='${recipe.image}' alt='${recipe.name}'>
+        <p>${recipe.name}</p>
+      </div>
+  `
+});
+};
+/// use id to find the recipe and pass the recipe into the user.addFavorite
 function displayCategoryRecipes(event) {
   hidePageArea(instructionsArea);
   hidePageArea(ingredientsArea);
@@ -182,14 +219,6 @@ function displayCategoryRecipes(event) {
 
 function displaySearchedRecipes(event) {
   event.preventDefault();
-  hidePageArea(allRecipeArea);
-  hidePageArea(ingredientsArea);
-  hidePageArea(instructionsArea);
-  hidePageArea(lowerMain);
-  hidePageArea(randomRecArea);
-  hidePageArea(singleRecipeArea);
-  showPageArea(recipeByCat);
-  showPageArea(pageTitle);
   recipeByCat.innerHTML = ''
   if (searchOptions.value === 'empty' || searchValue.value === '') {
     error.innerText = 'These fields cannot be empty';
