@@ -39,6 +39,7 @@ const allRecipeArea = document.getElementById('allRecipes');
 const singleRecipeArea = document.getElementById('singleRecipe');
 const pageTitle = document.getElementById('pageTitle');
 const instructionsArea = document.getElementById('instructions');
+const ingredientsArea = document.getElementById('ingredients');
 const currentRecipePage = document.getElementById('currentRecipe');
 
 const searchValue = document.getElementById('searchValue');
@@ -85,9 +86,9 @@ function getRandomIndex(array) {
 };
 
 function loadRandomInfo(recipeData) {
-  randomRecArea.innerHTML = '';
   const randomIndex1 = recipeData[getRandomIndex(recipeData)];
   const randomIndex2 = recipeData[getRandomIndex(recipeData)];
+  randomRecArea.innerHTML = '';
   randomRecArea.innerHTML +=
   `
    <section class='recipe random-recipes' id='randomRecipes'>
@@ -114,6 +115,7 @@ function displayClickedRecipe(event) {
   }
 
   let recipeToView = event.target.closest('.recipe');
+
   let matchedData = recipeData.find(recipe => {
     return recipe.id === parseInt(recipeToView.id);
   });
@@ -133,11 +135,12 @@ function displayClickedRecipe(event) {
     </section>
      <h2>Instructions</h2>
   `
-  displayInstructions(result)
+  displayInstructions(result);
+  displayIngredients(result);
   return matchedData;
 }
 
-
+//I refactored the returnInstructions method in Recipe.js
 function displayInstructions(result) {
   let instToDisplay = result.returnInstructions();
   instructionsArea.innerHTML = '';
@@ -147,6 +150,20 @@ function displayInstructions(result) {
     <p>${inst.instruction}</p>
     `
   });
+}
+
+function displayIngredients(result) {
+  toggleHidden(ingredientsArea);
+  ingredientsArea.innerHTML = '';
+  console.log(result.listIngredients(ingredientsData));
+  result.ingredientNames.forEach(ingName => {
+    ingredientsArea.innerHTML +=
+    `
+      <section class='ingredients' id='ingredients'>
+        <p>${ingName.name}</p>
+      </section>
+    `
+  })
 }
 
 // separate instructions in HTML
@@ -206,7 +223,7 @@ function displayAllRecipes() {
 
   pageTitle.innerText = `All Recipes`
   allRecipeArea.classList.remove('hidden');
-
+  // allRecipeArea.addEventListener('click', displayClickedRecipe);
   let allRecipes = recipeData.forEach(recipe => {
     allRecipeArea.innerHTML +=
     `
