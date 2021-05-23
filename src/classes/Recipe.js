@@ -9,18 +9,16 @@ class Recipe {
     this.ingredientNames = [];
   }
 
-  listIngredients(testIngredientData) {
-    const names = this.ingredients.map(ingredient => {
-      const matchedIds = testIngredientData.filter(ing => {
-        ing.id === ingredient.id;
+  listIngredients(data) {
+    let theseIngs = this.ingredients.forEach(ingredient => {
+      let nameMatch = data.find(ing => {
+        return ing.id === ingredient.id;
       });
-      const list = matchedIds.map(ing => {
-        this.ingredientNames.push({name: ing.name, price: ing.estimatedCostInCents})
-      });
+      this.ingredientNames.push(nameMatch);
+      return nameMatch;
     });
-    return this.ingredientNames.forEach(ing => {
-      return ing;
-    });
+    console.log(this.ingredientNames);
+    return this.ingredientNames;
   }
 
   calculateRecipeCost(testIngredientData) {
@@ -33,9 +31,12 @@ class Recipe {
     return total / 100;
   }
 
-  displayInstructions() {
-    console.log(this.instructions);
-    // return this.ingredientNames;
+  returnInstructions() {
+    let instToReturn = []
+    let result = this.instructions.forEach(inst => {
+      instToReturn.push(inst);
+    });
+    return instToReturn
   }
 
 }

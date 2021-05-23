@@ -39,11 +39,12 @@ const allRecipeArea = document.getElementById('allRecipes');
 const singleRecipeArea = document.getElementById('singleRecipe');
 const pageTitle = document.getElementById('pageTitle');
 const instructionsArea = document.getElementById('instructions');
+const ingredientsArea = document.getElementById('ingredients');
 const currentRecipePage = document.getElementById('currentRecipe');
-
+const popularTitle = document.getElementById('popularTitle');
 const searchValue = document.getElementById('searchValue');
 
-
+const main = document.getElementById('main');
 
 // Event Listeners
 window.addEventListener('load', function() {
@@ -69,11 +70,15 @@ searchRecipeForm.addEventListener('keypress', function(event) {
 });
 // addToMPBtn.addEventListener('click', addRecipeToMealPlan);
 homeBtn.addEventListener('click', navigateToHome);
+randomRecArea.addEventListener('click', displayClickedRecipe)
 viewAllBtn.addEventListener('click', displayAllRecipes);
 
-randomRecArea.addEventListener('click', displayClickedPopular);
-// randomRecArea.addEventListener('click', displayClickedRecipe);
 
+// allRecipeArea.addEventListener('click', displayClickedRecipe);
+
+
+//global variables
+let result;
 
 //functions
 function getRandomIndex(array) {
@@ -81,17 +86,17 @@ function getRandomIndex(array) {
 };
 
 function loadRandomInfo(recipeData) {
-  randomRecArea.innerHTML = '';
   const randomIndex1 = recipeData[getRandomIndex(recipeData)];
   const randomIndex2 = recipeData[getRandomIndex(recipeData)];
+  randomRecArea.innerHTML = '';
   randomRecArea.innerHTML +=
   `
-   <section class='random-recipes' id='randomRecipes'>
-    <div class='popular' id='${randomIndex1.id}'>
+   <section class='recipe random-recipes' id='randomRecipes'>
+    <div class='recipe popular' id='${randomIndex1.id}'>
       <h3>${randomIndex1.name}</h3>
       <img src="${randomIndex1.image}" alt="${randomIndex1.name}">
     </div>
-    <div class='popular' id='${randomIndex2.id}'>
+    <div class='recipe popular' id='${randomIndex2.id}'>
       <h3>${randomIndex2.name}</h3>
       <img src="${randomIndex2.image}" alt="${randomIndex2.name}">
     </div>
@@ -100,22 +105,29 @@ function loadRandomInfo(recipeData) {
 }
   // on window load, still need a random user to be logged in
 
-function displayClickedPopular(event) {
+function displayClickedRecipe(event) {
   toggleHidden(lowerMain);
   toggleHidden(singleRecipeArea);
   toggleHidden(instructionsArea);
-  let recipeToView = event.target.closest('.popular');
+  toggleHidden(popularTitle);
+
+  if (!allRecipeArea.classList.contains('hidden')) {
+    toggleHidden(allRecipeArea);
+  }
+
+  let recipeToView = event.target.closest('.recipe');
+
   let matchedData = recipeData.find(recipe => {
     return recipe.id === parseInt(recipeToView.id);
   });
   // console.log(matchedData);
-  let result = new Recipe(matchedData);
+  result = new Recipe(matchedData);
 
   singleRecipeArea.innerHTML = '';
   singleRecipeArea.innerHTML +=
   `
-    <section class='single-recipe-view' id='singleRecipe'>
-      <div class='popular' id='${matchedData.id}'>
+    <section class='recipe single-recipe-view' id='singleRecipe'>
+      <div class='recipe popular' id='${matchedData.id}'>
         <header>
           <h2>${matchedData.name}</h2>
         </header>
@@ -124,15 +136,36 @@ function displayClickedPopular(event) {
     </section>
      <h2>Instructions</h2>
   `
+  displayInstructions(result);
+  displayIngredients(result);
+  return matchedData;
+}
+
+// I refactored the returnInstructions method in Recipe.js
+//and not so elegant with the HTML so these are currently separate chunks
+function displayInstructions(result) {
+  let instToDisplay = result.returnInstructions();
   instructionsArea.innerHTML = '';
-  result.instructions.forEach(inst => {
+  instToDisplay.forEach(inst => {
     instructionsArea.innerHTML +=
     `
     <p>${inst.instruction}</p>
     `
   });
+}
 
-  return matchedData;
+function displayIngredients(result) {
+  toggleHidden(ingredientsArea);
+  ingredientsArea.innerHTML = '';
+  console.log(result.listIngredients(ingredientsData));
+  result.ingredientNames.forEach(ingName => {
+    ingredientsArea.innerHTML +=
+    `
+      <section class='ingredients' id='ingredients'>
+        <p>${ingName.name}</p>
+      </section>
+    `
+  })
 }
 
 // separate instructions in HTML
@@ -151,7 +184,7 @@ function displayClickedPopular(event) {
     recipeByCat.innerHTML = ''
     let catRecipes = tagRecipes.forEach(recipe => {
       recipeByCat.innerHTML += `
-        <div class='recipe-listing' id=recipeListing1>
+        <div class='recipe recipe-listing' id=recipeListing1>
           <img src='${recipe.image}' alt='${recipe.name}'>
           <p>${recipe.name}</p>
         </div>
@@ -172,7 +205,7 @@ function displaySearchedRecipes(event) {
   pageTitle.innerText = `Recipes that include ${searchTerm}`
   let filteredRecipes = recipeList.forEach(recipe => {
     recipeByCat.innerHTML += `
-      <div class='recipe-listing' id=recipeListing1>
+      <div class='recipe recipe-listing' id=recipeListing1>
         <img src='${recipe.image}' alt='${recipe.name}'>
         <p>${recipe.name}</p>
       </div>
@@ -181,33 +214,42 @@ function displaySearchedRecipes(event) {
 }
 
 function displayAllRecipes() {
+  if (!randomRecArea.classList.contains('hidden')) {
+    toggleHidden(randomRecArea);
+  }
   if (!singleRecipeArea.classList.contains('hidden')) {
     toggleHidden(singleRecipeArea);
   }
   if (!instructionsArea.classList.contains('hidden')) {
     toggleHidden(instructionsArea);
   }
-  disableBtn(viewAllBtn);
-  lowerMain.classList.add('hidden');
-  allRecipeArea.classList.remove('hidden');
+  if (!ingredientsArea.classList.contains('hidden')) {
+    toggleHidden(ingredientsArea);
+  }
+
+  toggleHidden(lowerMain)
+
   pageTitle.innerText = `All Recipes`
+  allRecipeArea.classList.remove('hidden');
+  // allRecipeArea.addEventListener('click', displayClickedRecipe);
   let allRecipes = recipeData.forEach(recipe => {
     allRecipeArea.innerHTML +=
     `
-    <section class='all-recipes' id='allRecipes' ${recipe.id}>
-      <div class='popular-recipes-one' id='popularRecipesOne'>
+    <section class='all-recipes' id='${recipe.id}'>
+      <div class='popular-recipes-one' id='${recipe.id}'>
         <h3>${recipe.name}</h3>
         <img src="${recipe.image}" alt="chocolate-chip-cookies">
       </div>
     </section>
     `
   });
+
   return allRecipes;
 }
 
 
-
 function navigateToHome() {
+  toggleHidden(popularTitle);
   if (!allRecipeArea.classList.contains('hidden')) {
     toggleHidden(allRecipeArea);
     enableBtn(viewAllBtn);
@@ -224,9 +266,11 @@ function navigateToHome() {
   if (!pageTitle.classList.contains('hidden')) {
     toggleHidden(pageTitle);
   }
+  if (!ingredientsArea.classList.contains('hidden')) {
+    toggleHidden(ingredientsArea);
+  }
   loadRandomInfo(recipeData);
 }
-
 
 
 
