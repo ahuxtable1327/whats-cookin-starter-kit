@@ -1,16 +1,16 @@
 import './styles.css';
-// import apiCalls from './apiCalls';
+import { fetchData } from './apiCalls';
 import Recipe from '../src/classes/Recipe';
 import RecipeRepository from '../src/classes/RecipeRepository';
 import Ingredient from '../src/classes/Ingredient';
 import User from '../src/classes/User';
 
-import testRecipeData from '../src/data/testRecipeData';
-import testIngredientData from '../src/data/testIngredientData';
-
-import recipeData from '../src/data/recipes';
-import ingredientsData from '../src/data/ingredients';
-import userData from '../src/data/users';
+// import testRecipeData from '../src/data/testRecipeData';
+// import testIngredientData from '../src/data/testIngredientData';
+//
+// import recipeData from '../src/data/recipes';
+// import ingredientsData from '../src/data/ingredients';
+// import userData from '../src/data/users';
 
 const repository = new RecipeRepository(recipeData, ingredientsData);
 const randomUser = userData[getRandomIndex(userData)];
@@ -82,7 +82,6 @@ singleRecipeArea.addEventListener('click', function() {
   addRecipeToFavorites(event)
 });
 favoritesArea.addEventListener('click', function() {
-  // displayClickedRecipe(event);
   deleteRecipeFromFavorites(event);
 });
 
@@ -186,7 +185,6 @@ function addRecipeToFavorites(event) {
 };
 
 function deleteRecipeFromFavorites(event) {
-  event.target.closest('btn');
   let recipeToDelete = event.target.id;
   let found = user.favoriteRecipes.find(rec => {
     return rec.id === parseInt(recipeToDelete);
