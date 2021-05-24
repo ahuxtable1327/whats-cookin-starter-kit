@@ -26,6 +26,7 @@ const searchRecipeForm = document.getElementById('search');
 const addToMPBtn = document.getElementById('addToMPBtn');
 const viewAllBtn = document.getElementById('viewAllBtn');
 const homeBtn = document.getElementById('homeBtn');
+// const deleteBtn = document.getElementById('delete');
 
   //page areas/sections
 //(grabbed section containing the divs)
@@ -79,7 +80,11 @@ allRecipeArea.addEventListener('click', displayClickedRecipe);
 recipeByCat.addEventListener('click', displayClickedRecipe);
 singleRecipeArea.addEventListener('click', function() {
   addRecipeToFavorites(event)
-})
+});
+favoritesArea.addEventListener('click', function() {
+  // displayClickedRecipe(event);
+  deleteRecipeFromFavorites(event);
+});
 
 
 //global variables
@@ -118,6 +123,7 @@ function displayClickedRecipe(event) {
   hidePageArea(lowerMain);
   hidePageArea(recipeByCat);
   hidePageArea(randomRecArea);
+  hidePageArea(favoritesArea);
   showPageArea(singleRecipeArea);
   showPageArea(instructionsArea);
   showPageArea(ingredientsArea);
@@ -145,8 +151,6 @@ function displayClickedRecipe(event) {
   return matchedData;
 }
 
-// I refactored the returnInstructions method in Recipe.js
-//and not so elegant with the HTML so these are currently separate chunks
 function displayInstructions(result) {
   let instToDisplay = result.returnInstructions();
   instructionsArea.innerHTML = '';
@@ -178,30 +182,41 @@ function addRecipeToFavorites(event) {
   const firstChild = singleRecipeArea.firstElementChild;
   const recipeToAdd = repository.recipes.find(recipe => recipe.id === parseInt(firstChild.id));
   user.addFavorite(recipeToAdd);
-  console.log(user.favoriteRecipes);
+  // console.log(user.favoriteRecipes);
 };
 
+function deleteRecipeFromFavorites(event) {
+  event.target.closest('btn');
+  let recipeToDelete = event.target.id;
+  let found = user.favoriteRecipes.find(rec => {
+    return rec.id === parseInt(recipeToDelete);
+  });
+  user.removeFromFavorites(found);
+  displayFavorites();
+}
+
 function displayFavorites() {
-  console.log('working')
   hidePageArea(ingredientsArea);
   hidePageArea(instructionsArea)
   hidePageArea(lowerMain);
   hidePageArea(allRecipeArea);
   hidePageArea(singleRecipeArea);
   hidePageArea(randomRecArea);
-  showPageArea(recipeByCat);
+  hidePageArea(recipeByCat);
+  showPageArea(favoritesArea);
   showPageArea(pageTitle);
-  recipeByCat.innerHTML = ''
+  favoritesArea.innerHTML = ''
   const favoriteRecipes = user.favoriteRecipes;
   pageTitle.innerText = `${user.name}'s Favorite Recipes`
   let filteredRecipes = favoriteRecipes.forEach(recipe => {
-    recipeByCat.innerHTML += `
+    favoritesArea.innerHTML += `
       <div class='recipe recipe-listing' id='${recipe.id}'>
-        <img src='${recipe.image}' alt='${recipe.name}'>
         <p>${recipe.name}</p>
+        <button class'btn delete-btn' id='${recipe.id}'>Delete Recipe</button>
+        <img src='${recipe.image}' alt='${recipe.name}'>
       </div>
   `
-});
+  });
 };
 /// use id to find the recipe and pass the recipe into the user.addFavorite
 function displayCategoryRecipes(event) {
@@ -261,6 +276,7 @@ function displayAllRecipes() {
   hidePageArea(instructionsArea);
   hidePageArea(ingredientsArea);
   hidePageArea(lowerMain);
+  hidePageArea(favoritesArea);
   showPageArea(pageTitle);
   pageTitle.innerText = 'All Recipes'
   allRecipeArea.classList.remove('hidden');

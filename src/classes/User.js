@@ -17,9 +17,11 @@ class User {
   }
 
   removeFromFavorites(recipeToDelete) {
+    console.log(this.favoriteRecipes);
     if(this.favoriteRecipes.includes(recipeToDelete)) {
       this.favoriteRecipes.splice(this.favoriteRecipes.indexOf(recipeToDelete), 1);
     }
+    console.log(this.favoriteRecipes);
   }
 
   addToMealPlan(recipe) {
