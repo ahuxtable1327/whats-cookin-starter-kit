@@ -37,13 +37,14 @@ class Recipe {
   }
 
   returnInstructions() {
-    let instToReturn = []
-    let result = this.instructions.forEach(inst => {
-      instToReturn.push(inst);
-    });
-    return instToReturn
+    // let instToReturn = []
+    // let result = this.instructions.forEach(inst => {
+    //   instToReturn.push(inst);
+    // });
+    // return instToReturn
+    return this.instructions;
   }
-  
+
 }
 
 

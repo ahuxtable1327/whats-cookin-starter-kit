@@ -1,27 +1,20 @@
-const fetchData = () => {
-
-  const userData = fetch('http://localhost:3001/api/v1/users')
+  const userData = () => fetch('http://localhost:3001/api/v1/users')
     .then(response => response.json())
-    .then(userData => {
-      return userData;
-    });
+    .then(data => )
+    .catch(err => console.log('error!'));
 
-  const ingredientsData = fetch('http://localhost:3001/api/v1/ingredients')
+  const ingredientsData = () => fetch('http://localhost:3001/api/v1/ingredients')
    .then(response => response.json())
-   .then(ingredientsData => {
-     return ingredientsData;
-   });
+   .then(data => )
+   .catch(err => console.log('error!'));
 
-  const recipeData = fetch('http://localhost:3001/api/v1/recipes')
+  const recipeData = () => fetch('http://localhost:3001/api/v1/recipes')
     .then(response => response.json())
-    .then(recipeData => {
-      return recipeData;
-    });
+    .then(data => )
+    .catch(err => console.log('error!'));
 
-  //need a promise to be returned
-  const promise
-
-}
+  const getData = () => Promise.all([userData(), ingredientsData(), recipeData()]);
 
 
-console.log('I will be a fetch request!')
+// console.log('I will be a fetch request!')
+export default getData;

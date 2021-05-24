@@ -1,20 +1,20 @@
 import './styles.css';
-import { fetchData } from './apiCalls';
+// import getData from './apiCalls';
 import Recipe from '../src/classes/Recipe';
 import RecipeRepository from '../src/classes/RecipeRepository';
 import Ingredient from '../src/classes/Ingredient';
 import User from '../src/classes/User';
 
-// import testRecipeData from '../src/data/testRecipeData';
-// import testIngredientData from '../src/data/testIngredientData';
-//
-// import recipeData from '../src/data/recipes';
-// import ingredientsData from '../src/data/ingredients';
-// import userData from '../src/data/users';
+import testRecipeData from '../src/data/testRecipeData';
+import testIngredientData from '../src/data/testIngredientData';
+
+import recipeData from '../src/data/recipes';
+import ingredientsData from '../src/data/ingredients';
+import userData from '../src/data/users';
 
 const repository = new RecipeRepository(recipeData, ingredientsData);
 const randomUser = userData[getRandomIndex(userData)];
-const user = new User(randomUser)
+const user = new User(randomUser);
 //DOM variables
   //buttons and form
 const favoritesBtn = document.getElementById('favBtn');
@@ -50,10 +50,25 @@ const error = document.getElementById('error')
 
 // const main = document.getElementById('main');
 
+let allData = [];
+
 // Event Listeners
 window.addEventListener('load', function() {
+  // getData()
+  //   .then(response => allData = response)
+  //   .then( () => {
+  //     console.log('allData', allData)
+  //     loadRandomInfo(allData[2].recipeData);
+  //   });
   loadRandomInfo(recipeData);
 });
+
+// let allData = [];
+let result;
+// const repository = new RecipeRepository(recipeData, ingredientsData);
+// const randomUser = userData[getRandomIndex(userData)];
+// const user = new User(randomUser);
+
 favoritesBtn.addEventListener('click', displayFavorites);
 breakfastBtn.addEventListener('click', function () {
   displayCategoryRecipes(event)
@@ -78,16 +93,14 @@ randomRecArea.addEventListener('click', displayClickedRecipe)
 viewAllBtn.addEventListener('click', displayAllRecipes);
 allRecipeArea.addEventListener('click', displayClickedRecipe);
 recipeByCat.addEventListener('click', displayClickedRecipe);
+
 singleRecipeArea.addEventListener('click', function() {
   addRecipeToFavorites(event)
 });
+
 favoritesArea.addEventListener('click', function() {
   deleteRecipeFromFavorites(event);
 });
-
-
-//global variables
-let result;
 
 //functions
 function getRandomIndex(array) {
@@ -185,12 +198,17 @@ function addRecipeToFavorites(event) {
 };
 
 function deleteRecipeFromFavorites(event) {
-  let recipeToDelete = event.target.id;
-  let found = user.favoriteRecipes.find(rec => {
-    return rec.id === parseInt(recipeToDelete);
-  });
-  user.removeFromFavorites(found);
-  displayFavorites();
+  if (event.target.closest('img')) {
+    displayClickedRecipe(event);
+  } else {
+    event.target.closest('btn');
+    let recipeToDelete = event.target.id;
+    let found = user.favoriteRecipes.find(rec => {
+      return rec.id === parseInt(recipeToDelete);
+    });
+    user.removeFromFavorites(found);
+    displayFavorites();
+  }
 }
 
 function displayFavorites() {
