@@ -143,21 +143,20 @@ function displayClickedRecipe(event) {
   singleRecipeArea.innerHTML +=
   `
       <div class='current-recipe' id='${matchedData.id}'>
-        <button class='add-to-fav-btn' id='addToFavBtn'>➕ Add to favorites</button>
-        <header>
+        <header class='current-rec-head'>
           <h2>${matchedData.name}</h2>
         </header>
+        <button class='add-to-fav-btn' id='addToFavBtn'>➕ Add to favorites</button>
         <img class='single-recipe' src="${matchedData.image}">
       </div>
       <h3>Estimated Total Recipe Cost: $${result.calculateRecipeCost()}</h3>
-      <h2>Instructions</h2>
   `
   return matchedData;
 }
 
 function displayInstructions(result) {
   let instToDisplay = result.returnInstructions();
-  instructionsArea.innerHTML = '';
+  instructionsArea.innerHTML = '<h2>Instructions</h2>';
   instToDisplay.forEach(inst => {
     instructionsArea.innerHTML +=
     `
@@ -170,12 +169,12 @@ function displayInstructions(result) {
 
 function displayIngredients(result) {
   result.listIngredients(ingredientsData);
-  ingredientsArea.innerHTML = '';
+  ingredientsArea.innerHTML = `<h2 class='ingred'>Ingredients & Cost</h2>`;
   result.ingredientNames.forEach(ingName => {
     ingredientsArea.innerHTML +=
     `
       <div class='ingredients' id='${ingName.id}'>
-        <p>${ingName.name}, ${ingName.amount} ${ingName.unit} - est cost: $${ingName.estimatedCostInCents/100}</p>
+        <p>${ingName.name}, ${ingName.amount} ${ingName.unit} - $${ingName.estimatedCostInCents/100}</p>
       </div>
     `
   });
