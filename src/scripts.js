@@ -103,7 +103,6 @@ function getRandomIndex(array) {
 };
 
 function loadRandomInfo(recipeData) {
-  // console.log(user);
   pageTitle.innerHTML = 'Popular Recipes';
   const randomIndex1 = recipeData[getRandomIndex(recipeData)];
   const randomIndex2 = recipeData[getRandomIndex(recipeData)];
@@ -150,7 +149,7 @@ function displayClickedRecipe(event) {
   singleRecipeArea.innerHTML +=
   `
       <div class='current-recipe' id='${matchedData.id}'>
-        <button class='add-to-fav-btn' id='addToFavBtn'>Add to favorites</button>
+        <button class='add-to-fav-btn' id='addToFavBtn'>➕ Add to favorites</button>
         <header>
           <h2>${matchedData.name}</h2>
         </header>
@@ -193,7 +192,6 @@ function addRecipeToFavorites(event) {
   const firstChild = singleRecipeArea.firstElementChild;
   const recipeToAdd = repository.recipes.find(recipe => recipe.id === parseInt(firstChild.id));
   user.addFavorite(recipeToAdd);
-  // console.log(user.favoriteRecipes);
 };
 
 function deleteRecipeFromFavorites(event) {
