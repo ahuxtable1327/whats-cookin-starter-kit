@@ -1,6 +1,43 @@
-body {
-  background-color: blueviolet;
+/* font-family: 'Bitter', serif;
+    colors: #0b7899 - steel blue,
+    #d9d9d9 - light grey,
+    #51565c - steel grey,
+    #81cbd4 - light blue,
+  */
+
+* {
+  font-family: 'Bitter', serif;
+  border: 2px solid blue;
+  margin: 0;
 }
+
+body {
+  background-color: #d9d9d9;
+  /* height: 100vh; */
+}
+/* HEADER */
+header {
+  background-color: #51565c;
+  color: white;
+  height: 8vh;
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-btn {
+  height: 5vh;
+  width: 10vw;
+  align-self: center;
+  background-color: #d9d9d9;
+}
+
+.nav-btn:hover {
+  background-color: #81cbd4;
+}
+
+/* SEARCH & FILTER */
+
+/*  */
 
 .hidden {
   display: none;
