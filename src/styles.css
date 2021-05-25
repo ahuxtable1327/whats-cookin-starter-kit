@@ -36,6 +36,59 @@ header {
 }
 
 /* SEARCH & FILTER */
+.category {
+  height: 18vh;
+  display: flex;
+  justify-content: space-around;
+}
+
+.category-btn {
+  height: 7vh;
+  width: 15vw;
+  align-self: center;
+  text-transform: uppercase;
+  background-color:  #0b7899;
+  color: white;
+}
+
+.category-btn:hover {
+  background-color: #81cbd4;
+}
+
+.search{
+  height: 10vh;
+  display: flex;
+  /* justify-content: center; */
+}
+
+.search-options {
+  height: 3vh;
+  width: 10vw;
+  margin-top: 1rem;
+}
+
+.search-by {
+  height: 3vh;
+  margin-top: 1rem;
+  margin-left: 5rem;
+}
+
+.search-error{
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+.search-bar {
+  height: 5vh;
+  width: 50vw;
+  align-self: center;
+  margin-left: 2rem;
+}
+
+.error {
+  margin-left: 2rem;
+}
 
 /*  */
 
