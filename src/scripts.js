@@ -25,6 +25,7 @@ const recipeByCat = document.getElementById('recipeByCat');
 const imageDesc = document.getElementById('imageDesc');
 const prepInstArea = document.getElementById('prepInstArea');
 const favoritesArea = document.getElementById('favoritesArea');
+const greetTitle = document.getElementById('greetTitle');
 
 // const mealPlan = document.getElementById('mealPlan');
 const lowerMain = document.getElementById('lowerMain');
@@ -55,6 +56,7 @@ window.addEventListener('load', function() {
         user = new User(randomUser);
         repository = new RecipeRepository(recipeData, ingredientsData);
         loadRandomInfo(recipeData);
+        greeting();
     });
 });
 
@@ -121,7 +123,11 @@ function loadRandomInfo(recipeData) {
     </div>
   `
 }
-  // on window load, still need a random user to be logged in
+
+function greeting() {
+  greetTitle.innerHTML = '';
+  greetTitle.innerHTML += `<h1 class='greet-title' id='greetTitle' >Hi, ${randomUser.name}! Whats Cookin?</h1>`
+}
 
 function displayClickedRecipe(event) {
   hidePageArea(allRecipeArea);
@@ -221,7 +227,7 @@ function displayFavorites() {
     favoritesArea.innerHTML += `
       <div class='recipe recipe-listing' id='${recipe.id}'>
         <p>${recipe.name}</p>
-        <button class'btn delete-btn' id='${recipe.id}'>Delete Recipe</button>
+        <button class'btn delete-btn' id='${recipe.id}'>🗑 Delete Recipe</button>
         <img src='${recipe.image}' alt='${recipe.name}'>
       </div>
   `
@@ -234,6 +240,7 @@ function displayCategoryRecipes(event) {
   hidePageArea(allRecipeArea);
   hidePageArea(singleRecipeArea);
   hidePageArea(lowerMain);
+  hidePageArea(randomRecArea);
   showPageArea(recipeByCat);
   const category = event.target.id;
   repository.filterByTag(category);
