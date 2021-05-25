@@ -18,13 +18,13 @@ const viewAllBtn = document.getElementById('viewAllBtn');
 const homeBtn = document.getElementById('homeBtn');
 
   //page areas/sections
-//(grabbed section containing the divs)
 const randomRecArea = document.getElementById('randomRecipes');
 const searchArea = document.getElementById('searchArea');
 const recipeByCat = document.getElementById('recipeByCat');
 const imageDesc = document.getElementById('imageDesc');
 const prepInstArea = document.getElementById('prepInstArea');
 const favoritesArea = document.getElementById('favoritesArea');
+const greetTitle = document.getElementById('greetTitle');
 
 // const mealPlan = document.getElementById('mealPlan');
 const lowerMain = document.getElementById('lowerMain');
@@ -33,7 +33,6 @@ const singleRecipeArea = document.getElementById('singleRecipe');
 const pageTitle = document.getElementById('pageTitle');
 const instructionsArea = document.getElementById('instructions');
 const ingredientsArea = document.getElementById('ingredients');
-// const currentRecipePage = document.getElementById('currentRecipe');
 const searchValue = document.getElementById('searchValue');
 const searchOptions = document.getElementById('searchOptions')
 const error = document.getElementById('error')
@@ -55,12 +54,9 @@ window.addEventListener('load', function() {
         user = new User(randomUser);
         repository = new RecipeRepository(recipeData, ingredientsData);
         loadRandomInfo(recipeData);
+        greeting();
     });
 });
-
-// const randomUser = userData[getRandomIndex(userData)];
-// const user = new User(randomUser);
-
 
 favoritesBtn.addEventListener('click', displayFavorites);
 breakfastBtn.addEventListener('click', function () {
@@ -101,7 +97,6 @@ function getRandomIndex(array) {
 };
 
 function loadRandomInfo(recipeData) {
-  // console.log(user);
   pageTitle.innerHTML = 'Popular Recipes';
   const randomIndex1 = recipeData[getRandomIndex(recipeData)];
   const randomIndex2 = recipeData[getRandomIndex(recipeData)];
@@ -121,7 +116,11 @@ function loadRandomInfo(recipeData) {
     </div>
   `
 }
-  // on window load, still need a random user to be logged in
+
+function greeting() {
+  greetTitle.innerHTML = '';
+  greetTitle.innerHTML += `<h1 class='greet-title' id='greetTitle' >Hi, ${randomUser.name}! Whats Cookin?</h1>`
+}
 
 function displayClickedRecipe(event) {
   hidePageArea(allRecipeArea);
@@ -144,7 +143,7 @@ function displayClickedRecipe(event) {
   singleRecipeArea.innerHTML +=
   `
       <div class='current-recipe' id='${matchedData.id}'>
-        <button class='add-to-fav-btn' id='addToFavBtn'>Add to favorites</button>
+        <button class='add-to-fav-btn' id='addToFavBtn'>➕ Add to favorites</button>
         <header>
           <h2>${matchedData.name}</h2>
         </header>
@@ -187,7 +186,6 @@ function addRecipeToFavorites(event) {
   const firstChild = singleRecipeArea.firstElementChild;
   const recipeToAdd = repository.recipes.find(recipe => recipe.id === parseInt(firstChild.id));
   user.addFavorite(recipeToAdd);
-  // console.log(user.favoriteRecipes);
 };
 
 function deleteRecipeFromFavorites(event) {
@@ -221,7 +219,7 @@ function displayFavorites() {
     favoritesArea.innerHTML += `
       <div class='recipe recipe-listing' id='${recipe.id}'>
         <p>${recipe.name}</p>
-        <button class'btn delete-btn' id='${recipe.id}'>Delete Recipe</button>
+        <button class'btn delete-btn' id='${recipe.id}'>🗑 Delete Recipe</button>
         <img src='${recipe.image}' alt='${recipe.name}'>
       </div>
   `
@@ -234,6 +232,7 @@ function displayCategoryRecipes(event) {
   hidePageArea(allRecipeArea);
   hidePageArea(singleRecipeArea);
   hidePageArea(lowerMain);
+  hidePageArea(randomRecArea);
   showPageArea(recipeByCat);
   const category = event.target.id;
   repository.filterByTag(category);
