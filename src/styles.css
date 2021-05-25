@@ -34,6 +34,7 @@ h1 {
   width: 10vw;
   margin-right: 2vw;
   margin-left: 2vw;
+  border-radius: 5px;
   align-self: center;
   background-color: #d9d9d9;
 }
@@ -103,16 +104,76 @@ h1 {
 h2 {
   display: flex;
   justify-content: center;
+  align-self: center;
+  margin-bottom: 2vh;
+  margin-top: 1vh;
 }
 
 h3 {
   display: flex;
   justify-content: center;
+  margin-bottom: 2vh;
 }
 .random-recipes {
   display: flex;
   justify-content: space-around;
 
+}
+
+/* CURRENT RECIPE */
+.current-rec-head {
+  background-color: #0b7899;
+  height: 5vh;
+  display: flex;
+  justify-content: center;
+}
+
+.current-recipe {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-to-fav-btn{
+  font-size: 1.2vw;
+  width: 10vw;
+  margin-top: 2vh;
+  margin-right: 5vw;
+  border-radius: 5px;
+  align-self: flex-end;
+}
+
+.add-to-fav-btn:hover {
+  background-color: #81cbd4;
+}
+
+.single-recipe{
+  max-width: 700px;
+  height: auto;
+  width: 50%;
+  align-self: center;
+  margin-bottom: 5vh;
+  border-radius: 10px;
+}
+
+.ingredients{
+  font-size: 1.5vw;
+  margin-left: 2vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.ingred {
+  align-self: flex-start;
+  margin-left: 2vw;
+  margin-bottom: 2vh;
+}
+
+.instructions {
+  font-size: 2vw;
+  font-size: 2vw;
+  display: flex;
+  flex-direction: column;
+  margin: 0 2vw 1.5vw 2vw;
 }
 
 .hidden {
