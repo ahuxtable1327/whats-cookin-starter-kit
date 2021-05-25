@@ -119,7 +119,7 @@ function loadRandomInfo(recipeData) {
 
 function greeting() {
   greetTitle.innerHTML = '';
-  greetTitle.innerHTML += `<h1 class='greet-title' id='greetTitle' >Hi, ${randomUser.name}! Whats Cookin?</h1>`
+  greetTitle.innerHTML += `<h1 class='greet-title' id='greetTitle' >Hi, ${randomUser.name}! What's Cookin?</h1>`
 }
 
 function displayClickedRecipe(event) {

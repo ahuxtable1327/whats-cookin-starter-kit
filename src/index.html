@@ -2,22 +2,25 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bitter&family=Source+Serif+Pro&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css">
     <title>Whats Cookin</title>
   </head>
   <body>
     <header>
-      <button class='fav-btn' id='favBtn'>❤️Favorites</button>
-      <h1 class='greet-title' id='greetTitle' >Whats Cookin</h1>
-      <button class='home-btn' id='homeBtn'>🏠Home Page</button>
+      <button class='nav-btn' id='favBtn'>❤️Favorites</button>
+      <h1 class='greet-title' id='greetTitle' >What's Cookin</h1>
+      <button class='nav-btn' id='homeBtn'>🏠Home Page</button>
     </header>
     <main class='main' id='main'>
 
       <section class='category' id='category'>
-        <button class='breakfast-btn' id='breakfast'>🥐 Breakfast</button>
-        <button class='lunch-btn' id='lunch'>🥪 Lunch</button>
-        <button class='dinner-btn' id='dinner'>🍔 Dinner</button>
-        <button class='side-btn' id='side'>🥗 Sides</button>
-        <button class="view-all" id='viewAllBtn'>🍴 View All Recipes</button>
+        <button class='category-btn' id='breakfast'>🥐 Breakfast</button>
+        <button class='category-btn' id='lunch'>🥪 Lunch</button>
+        <button class='category-btn' id='dinner'>🍔 Dinner</button>
+        <button class='category-btn' id='side'>🥗 Sides</button>
+        <button class="category-btn" id='viewAllBtn'>🍴 View All Recipes</button>
         <button class="delete hidden" id='delete'>🗑 Delete From Favorites</button>
       </section>
 
@@ -25,14 +28,16 @@
       <section class='lower-main' id='lowerMain'>
         <section class='search' id='searchArea'>
           <form class='search' id='search'>
-            <label for='search-options'>Search by:</label>
-              <select name='search' id='searchOptions'>
+            <label class='search-by' for='search-options'>Search by:</label>
+              <select class='search-options' name='search' id='searchOptions'>
                 <option value='empty'></option>
                 <option value='name'>Recipe Name</option>
                 <option value='ingredients'>Ingredients</option>
               </select>
-            <input type='text' placeholder='Find a Recipe' id='searchValue'>
-            <div class='error' id='error'></div>
+            <div class='search-error'>
+              <input class='search-bar' type='text' placeholder='Find a Recipe' id='searchValue'>
+              <div class='error' id='error'></div>
+            </div>
           </form>
         </section>
       </section>

@@ -1,5 +1,115 @@
+/* font-family: 'Bitter', serif;
+    colors: #0b7899 - steel blue,
+    #d9d9d9 - light grey,
+    #51565c - steel grey,
+    #81cbd4 - light blue,
+  */
+
+* {
+  font-family: 'Bitter', serif;
+  border: 2px solid blue;
+  margin: 0;
+}
+
 body {
-  background-color: blueviolet;
+  background-color: #d9d9d9;
+  /* height: 100vh; */
+}
+/* HEADER */
+header {
+  background-color: #51565c;
+  color: white;
+  height: 8vh;
+  display: flex;
+  justify-content: space-between;
+}
+
+h1 {
+  font-size: 2.5rem;
+  align-self: center;
+}
+
+.nav-btn {
+  height: 5vh;
+  width: 10vw;
+  align-self: center;
+  background-color: #d9d9d9;
+}
+
+.nav-btn:hover {
+  background-color: #81cbd4;
+}
+
+/* SEARCH & FILTER */
+.category {
+  height: 18vh;
+  display: flex;
+  justify-content: space-around;
+}
+
+.category-btn {
+  height: 7vh;
+  width: 15vw;
+  align-self: center;
+  text-transform: uppercase;
+  font-size: 1rem;
+  border-radius: 50px;
+  background-color:  #0b7899;
+  color: white;
+}
+
+.category-btn:hover {
+  background-color: #81cbd4;
+}
+
+.search{
+  height: 10vh;
+  display: flex;
+}
+
+.search-options {
+  height: 3vh;
+  width: 10vw;
+  margin-top: 1rem;
+}
+
+.search-by {
+  height: 3vh;
+  margin-top: 1rem;
+  margin-left: 5rem;
+}
+
+.search-error{
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+.search-bar {
+  height: 5vh;
+  width: 50vw;
+  align-self: center;
+  margin-left: 2rem;
+}
+
+.error {
+  margin-left: 2rem;
+}
+
+/* POPULAR RECIPES */
+h2 {
+  display: flex;
+  justify-content: center;
+}
+
+h3 {
+  display: flex;
+  justify-content: center;
+}
+.random-recipes {
+  display: flex;
+  justify-content: space-around;
+
 }
 
 .hidden {
