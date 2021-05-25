@@ -1,20 +1,20 @@
 import './styles.css';
-// import getData from './apiCalls';
+import getData from './apiCalls';
 import Recipe from '../src/classes/Recipe';
 import RecipeRepository from '../src/classes/RecipeRepository';
 import Ingredient from '../src/classes/Ingredient';
 import User from '../src/classes/User';
 
-import testRecipeData from '../src/data/testRecipeData';
-import testIngredientData from '../src/data/testIngredientData';
+// import testRecipeData from '../src/data/testRecipeData';
+// import testIngredientData from '../src/data/testIngredientData';
+//
+// import recipeData from '../src/data/recipes';
+// import ingredientsData from '../src/data/ingredients';
+// import userData from '../src/data/users';
 
-import recipeData from '../src/data/recipes';
-import ingredientsData from '../src/data/ingredients';
-import userData from '../src/data/users';
-
-const repository = new RecipeRepository(recipeData, ingredientsData);
-const randomUser = userData[getRandomIndex(userData)];
-const user = new User(randomUser);
+// const repository = new RecipeRepository(recipeData, ingredientsData);
+// const randomUser = userData[getRandomIndex(userData)];
+// const user = new User(randomUser);
 //DOM variables
   //buttons and form
 const favoritesBtn = document.getElementById('favBtn');
@@ -49,19 +49,24 @@ const searchOptions = document.getElementById('searchOptions')
 const error = document.getElementById('error')
 
 // const main = document.getElementById('main');
-
+let userData, ingredientsData, recipeData;
 let allData = [];
 
 // Event Listeners
 window.addEventListener('load', function() {
-  // getData()
-  //   .then(response => allData = response)
-  //   .then( () => {
-  //     console.log('allData', allData)
-  //     loadRandomInfo(allData[2].recipeData);
-  //   });
-  loadRandomInfo(recipeData);
+  getData()
+    .then(response => {
+        userData = response[0].usersData;
+        ingredientsData = response[1].ingredientsData;
+        recipeData = response[2].recipeData;
+        console.log(userData, ingredientsData, recipeData);
+        loadRandomInfo(recipeData);
+    })
 });
+
+// const repository = new RecipeRepository(recipeData, ingredientsData);
+const randomUser = userData[getRandomIndex(userData)];
+const user = new User(randomUser);
 
 // let allData = [];
 let result;
@@ -108,7 +113,7 @@ function getRandomIndex(array) {
 };
 
 function loadRandomInfo(recipeData) {
-  console.log(user);
+  // console.log(user);
   pageTitle.innerHTML = 'Popular Recipes';
   const randomIndex1 = recipeData[getRandomIndex(recipeData)];
   const randomIndex2 = recipeData[getRandomIndex(recipeData)];
