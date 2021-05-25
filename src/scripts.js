@@ -18,7 +18,6 @@ const viewAllBtn = document.getElementById('viewAllBtn');
 const homeBtn = document.getElementById('homeBtn');
 
   //page areas/sections
-//(grabbed section containing the divs)
 const randomRecArea = document.getElementById('randomRecipes');
 const searchArea = document.getElementById('searchArea');
 const recipeByCat = document.getElementById('recipeByCat');
@@ -34,7 +33,6 @@ const singleRecipeArea = document.getElementById('singleRecipe');
 const pageTitle = document.getElementById('pageTitle');
 const instructionsArea = document.getElementById('instructions');
 const ingredientsArea = document.getElementById('ingredients');
-// const currentRecipePage = document.getElementById('currentRecipe');
 const searchValue = document.getElementById('searchValue');
 const searchOptions = document.getElementById('searchOptions')
 const error = document.getElementById('error')
@@ -59,10 +57,6 @@ window.addEventListener('load', function() {
         greeting();
     });
 });
-
-// const randomUser = userData[getRandomIndex(userData)];
-// const user = new User(randomUser);
-
 
 favoritesBtn.addEventListener('click', displayFavorites);
 breakfastBtn.addEventListener('click', function () {
