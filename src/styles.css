@@ -105,6 +105,8 @@ h2 {
   display: flex;
   justify-content: center;
   align-self: center;
+  margin-bottom: 2vh;
+  margin-top: 1vh;
 }
 
 h3 {
@@ -132,6 +134,7 @@ h3 {
 }
 
 .add-to-fav-btn{
+  font-size: 1.2vw;
   width: 10vw;
   margin-top: 2vh;
   margin-right: 5vw;
@@ -144,9 +147,9 @@ h3 {
 }
 
 .single-recipe{
-  max-width: 500px;
+  max-width: 700px;
   height: auto;
-  width: auto;
+  width: 50%;
   align-self: center;
   margin-bottom: 5vh;
   border-radius: 10px;
@@ -166,7 +169,11 @@ h3 {
 }
 
 .instructions {
-
+  font-size: 2vw;
+  font-size: 2vw;
+  display: flex;
+  flex-direction: column;
+  margin: 0 2vw 1.5vw 2vw;
 }
 
 .hidden {
