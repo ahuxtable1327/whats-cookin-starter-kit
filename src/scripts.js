@@ -1,20 +1,10 @@
 import './styles.css';
-// import apiCalls from './apiCalls';
+import getData from './apiCalls';
 import Recipe from '../src/classes/Recipe';
 import RecipeRepository from '../src/classes/RecipeRepository';
 import Ingredient from '../src/classes/Ingredient';
 import User from '../src/classes/User';
 
-import testRecipeData from '../src/data/testRecipeData';
-import testIngredientData from '../src/data/testIngredientData';
-
-import recipeData from '../src/data/recipes';
-import ingredientsData from '../src/data/ingredients';
-import userData from '../src/data/users';
-
-const repository = new RecipeRepository(recipeData, ingredientsData);
-const randomUser = userData[getRandomIndex(userData)];
-const user = new User(randomUser)
 //DOM variables
   //buttons and form
 const favoritesBtn = document.getElementById('favBtn');
@@ -26,7 +16,6 @@ const searchRecipeForm = document.getElementById('search');
 const addToMPBtn = document.getElementById('addToMPBtn');
 const viewAllBtn = document.getElementById('viewAllBtn');
 const homeBtn = document.getElementById('homeBtn');
-// const deleteBtn = document.getElementById('delete');
 
   //page areas/sections
 //(grabbed section containing the divs)
@@ -36,6 +25,7 @@ const recipeByCat = document.getElementById('recipeByCat');
 const imageDesc = document.getElementById('imageDesc');
 const prepInstArea = document.getElementById('prepInstArea');
 const favoritesArea = document.getElementById('favoritesArea');
+
 // const mealPlan = document.getElementById('mealPlan');
 const lowerMain = document.getElementById('lowerMain');
 const allRecipeArea = document.getElementById('allRecipes');
@@ -43,17 +33,35 @@ const singleRecipeArea = document.getElementById('singleRecipe');
 const pageTitle = document.getElementById('pageTitle');
 const instructionsArea = document.getElementById('instructions');
 const ingredientsArea = document.getElementById('ingredients');
-const currentRecipePage = document.getElementById('currentRecipe');
+// const currentRecipePage = document.getElementById('currentRecipe');
 const searchValue = document.getElementById('searchValue');
 const searchOptions = document.getElementById('searchOptions')
 const error = document.getElementById('error')
 
 // const main = document.getElementById('main');
+let userData, ingredientsData, recipeData, result;
+let allData = [];
+let user, randomUser, repository;
 
 // Event Listeners
 window.addEventListener('load', function() {
-  loadRandomInfo(recipeData);
+  getData()
+    .then(response => {
+        userData = response[0].usersData;
+        ingredientsData = response[1].ingredientsData;
+        recipeData = response[2].recipeData;
+        console.log(userData, ingredientsData, recipeData);
+        randomUser = userData[getRandomIndex(userData)];
+        user = new User(randomUser);
+        repository = new RecipeRepository(recipeData, ingredientsData);
+        loadRandomInfo(recipeData);
+    });
 });
+
+// const randomUser = userData[getRandomIndex(userData)];
+// const user = new User(randomUser);
+
+
 favoritesBtn.addEventListener('click', displayFavorites);
 breakfastBtn.addEventListener('click', function () {
   displayCategoryRecipes(event)
@@ -78,17 +86,14 @@ randomRecArea.addEventListener('click', displayClickedRecipe)
 viewAllBtn.addEventListener('click', displayAllRecipes);
 allRecipeArea.addEventListener('click', displayClickedRecipe);
 recipeByCat.addEventListener('click', displayClickedRecipe);
+
 singleRecipeArea.addEventListener('click', function() {
   addRecipeToFavorites(event)
 });
+
 favoritesArea.addEventListener('click', function() {
-  // displayClickedRecipe(event);
   deleteRecipeFromFavorites(event);
 });
-
-
-//global variables
-let result;
 
 //functions
 function getRandomIndex(array) {
@@ -96,7 +101,7 @@ function getRandomIndex(array) {
 };
 
 function loadRandomInfo(recipeData) {
-  console.log(user);
+  // console.log(user);
   pageTitle.innerHTML = 'Popular Recipes';
   const randomIndex1 = recipeData[getRandomIndex(recipeData)];
   const randomIndex2 = recipeData[getRandomIndex(recipeData)];
@@ -186,13 +191,17 @@ function addRecipeToFavorites(event) {
 };
 
 function deleteRecipeFromFavorites(event) {
-  event.target.closest('btn');
-  let recipeToDelete = event.target.id;
-  let found = user.favoriteRecipes.find(rec => {
-    return rec.id === parseInt(recipeToDelete);
-  });
-  user.removeFromFavorites(found);
-  displayFavorites();
+  if (event.target.closest('img')) {
+    displayClickedRecipe(event);
+  } else {
+    event.target.closest('btn');
+    let recipeToDelete = event.target.id;
+    let found = user.favoriteRecipes.find(rec => {
+      return rec.id === parseInt(recipeToDelete);
+    });
+    user.removeFromFavorites(found);
+    displayFavorites();
+  }
 }
 
 function displayFavorites() {
