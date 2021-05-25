@@ -218,8 +218,8 @@ function displayFavorites() {
   let filteredRecipes = favoriteRecipes.forEach(recipe => {
     favoritesArea.innerHTML += `
       <div class='recipe recipe-listing' id='${recipe.id}'>
-        <p>${recipe.name}</p>
-        <button class'btn delete-btn' id='${recipe.id}'>🗑 Delete Recipe</button>
+        <h3 class>${recipe.name}</h3>
+        <button class='btn delete-btn' id='${recipe.id}'>🗑 Delete Recipe</button>
         <img class='recipe-img' src='${recipe.image}' alt='${recipe.name}'>
       </div>
   `
@@ -271,8 +271,8 @@ function displayRecipes() {
   let filteredRecipes = recipeList.forEach(recipe => {
     recipeByCat.innerHTML += `
       <div class='recipe recipe-listing' id='${recipe.id}'>
+        <h3>${recipe.name}</h3>
         <img class='recipe-img' src='${recipe.image}' alt='${recipe.name}'>
-        <p>${recipe.name}</p>
       </div>
   `
   });
@@ -291,9 +291,9 @@ function displayAllRecipes() {
   let allRecipes = recipeData.forEach(recipe => {
     allRecipeArea.innerHTML +=
     `
-      <div class='recipe popular-recipes-one' id='${recipe.id}'>
+      <div class="recipe recipe-listing" id="${recipe.id}">
         <h3>${recipe.name}</h3>
-        <img class='recipe-img' src="${recipe.image}" alt="chocolate-chip-cookies">
+        <img class='recipe-img' src="${recipe.image}" alt="${recipe.name}">
       </div>
     `
   });

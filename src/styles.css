@@ -7,7 +7,7 @@
 
 * {
   font-family: 'Bitter', serif;
-  border: 2px solid blue;
+  /* border: 2px solid blue; */
   margin: 0;
 }
 
@@ -27,6 +27,21 @@ header {
 h1 {
   font-size: 2.5vw;
   align-self: center;
+}
+
+img {
+  margin-top: 1vw;
+  border: 5px solid #0b7899;
+  border-radius:10px;
+  box-shadow: 10px 15px 15px #51565c;
+  /* width: 375px;
+  height: 360px; */
+  /* border-radius: 50%; */
+}
+
+img:hover {
+  border: 5px solid #81cbd4;
+  box-shadow: 10px 15px 15px #0b7899;
 }
 
 .nav-btn {
@@ -103,17 +118,68 @@ h1 {
 h2 {
   display: flex;
   justify-content: center;
+  font-size: 32px;
+  font-weight: bold;
 }
 
 h3 {
   display: flex;
   justify-content: center;
+  margin-top: 55px;
+  font-size: 20px;
+  font-weight: bold;
 }
 .random-recipes {
   display: flex;
   justify-content: space-around;
-
+  align-items: center;
 }
+
+/* ALL RECIPES */
+.all-recipes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 18px;
+}
+
+.recipe-listing {
+  margin-top: 3vw;
+}
+
+/* RECIPES BY CAT */
+
+.recipe-by-cat {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 18px;
+}
+
+/* FAVORITES */
+.favorites {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.delete-btn {
+  width: 7vw;
+  padding: 0.5vw;
+  border-radius: 5px;
+  background-color: #d9d9d9;
+  margin-bottom: 1vw;
+}
+
+.delete-btn:hover {
+  background-color: #81cbd4;
+}
+
+
 
 .hidden {
   display: none;
