@@ -108,11 +108,11 @@ function loadRandomInfo(recipeData) {
   `
     <div class='recipe popular' id='${randomIndex1.id}'>
       <h3>${randomIndex1.name}</h3>
-      <img src="${randomIndex1.image}" alt="${randomIndex1.name}">
+      <img class='recipe-img' src="${randomIndex1.image}" alt="${randomIndex1.name}">
     </div>
     <div class='recipe popular' id='${randomIndex2.id}'>
       <h3>${randomIndex2.name}</h3>
-      <img src="${randomIndex2.image}" alt="${randomIndex2.name}">
+      <img class='recipe-img' src="${randomIndex2.image}" alt="${randomIndex2.name}">
     </div>
   `
 }
@@ -147,7 +147,7 @@ function displayClickedRecipe(event) {
         <header>
           <h2>${matchedData.name}</h2>
         </header>
-        <img src="${matchedData.image}">
+        <img class='single-recipe' src="${matchedData.image}">
       </div>
       <h3>Estimated Total Recipe Cost: $${result.calculateRecipeCost()}</h3>
       <h2>Instructions</h2>
@@ -220,7 +220,7 @@ function displayFavorites() {
       <div class='recipe recipe-listing' id='${recipe.id}'>
         <p>${recipe.name}</p>
         <button class'btn delete-btn' id='${recipe.id}'>🗑 Delete Recipe</button>
-        <img src='${recipe.image}' alt='${recipe.name}'>
+        <img class='recipe-img' src='${recipe.image}' alt='${recipe.name}'>
       </div>
   `
   });
@@ -271,7 +271,7 @@ function displayRecipes() {
   let filteredRecipes = recipeList.forEach(recipe => {
     recipeByCat.innerHTML += `
       <div class='recipe recipe-listing' id='${recipe.id}'>
-        <img src='${recipe.image}' alt='${recipe.name}'>
+        <img class='recipe-img' src='${recipe.image}' alt='${recipe.name}'>
         <p>${recipe.name}</p>
       </div>
   `
@@ -293,7 +293,7 @@ function displayAllRecipes() {
     `
       <div class='recipe popular-recipes-one' id='${recipe.id}'>
         <h3>${recipe.name}</h3>
-        <img src="${recipe.image}" alt="chocolate-chip-cookies">
+        <img class='recipe-img' src="${recipe.image}" alt="chocolate-chip-cookies">
       </div>
     `
   });
