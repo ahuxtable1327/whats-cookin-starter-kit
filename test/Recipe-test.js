@@ -53,11 +53,15 @@ describe('Recipe', () => {
   });
 
   it('Should calculate the cost of all it\'s ingredients', () => {
-    expect(newRecipe.calculateRecipeCost(testIngredientData)).to.equal(36.865);
+    const total = newRecipe.calculateRecipeCost(testIngredientData);
+    expect(newRecipe.ingredientNames).to.be.an('array');
+    expect(total).to.equal('0.00');
   });
 
-  it('Should return its directions/prep instructions', () => {
-    expect(newRecipe.displayInstructions()).to.equal(newRecipe.instructions);
+  it('Should return it\'s prep instructions', () => {
+    const prepList = newRecipe.returnInstructions()
+    expect(prepList).to.be.an('array');
+    expect(prepList.length).to.eql(6);
   });
 
 });
