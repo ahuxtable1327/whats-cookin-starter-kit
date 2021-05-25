@@ -34,9 +34,6 @@ img {
   border: 5px solid #0b7899;
   border-radius:10px;
   box-shadow: 10px 15px 15px #51565c;
-  /* width: 375px;
-  height: 360px; */
-  /* border-radius: 50%; */
 }
 
 img:hover {
@@ -164,19 +161,33 @@ h3 {
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
+}
+
+.fav-name {
+  font-size: 20px;
+}
+
+.recipe-image {
   box-sizing: border-box;
+  position: relative;
 }
 
 .delete-btn {
-  width: 7vw;
-  padding: 0.5vw;
+  height: 5vh;
+  width: 10vw;
+  position: absolute;
+  margin-top: 20vw;
+  margin-left: 2vw;
   border-radius: 5px;
-  background-color: #d9d9d9;
-  margin-bottom: 1vw;
+  background-color: none;
+  opacity: 60%;
+  font-size: 18px;
+  font-weight: bolder;
 }
 
 .delete-btn:hover {
-  background-color: #81cbd4;
+  background-color: #0b7899;
+  color: white;
 }
 
 /* CURRENT RECIPE */
