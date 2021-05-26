@@ -1,15 +1,6 @@
 ## Title: What's Cookin 
 
-A Front-End Project by: [Ashton Huxtable](https://github.com/ahuxtable1327) & [Beth Meeker](https://github.com/Meekb)
-
-## Index
-
-1. [Overview](#overview)
-2. [Functionality](#functionality)
-3. [Technologies](#technologies)
-4. [Contributors](#contributors)
-5. [Resources](#resources)
-6. [Instructions](#instructions)
+A Front-End Project by: [Ashton Huxtable](https://github.com/ahuxtable1327) and [Beth Meeker](https://github.com/Meekb)
 
 ## Overview
   What's Cookin is a recipe application designed to allow users to search and save recipes. 
@@ -38,7 +29,20 @@ A Front-End Project by: [Ashton Huxtable](https://github.com/ahuxtable1327) & [B
    - Favorites View
     - A recipe is added to Favorites by clicking the Add To Favorites button displayed when viewing the recipe details
     - Favorites section is named by user name, creating a unique and personalized experience
+
+### Large recipe category buttons for ease of navigation
+
+![recording (9)](https://user-images.githubusercontent.com/76264735/119591033-21cf2d80-bd93-11eb-9809-fb9e67b49b88.gif)
    
+### Search recipes by Recipe Name or Ingredients
+
+![recording (7)](https://user-images.githubusercontent.com/76264735/119590536-2cd58e00-bd92-11eb-864a-af361aef1027.gif)
+
+
+### Add Favorite Recipes
+
+![recording (8)](https://user-images.githubusercontent.com/76264735/119590790-b38a6b00-bd92-11eb-8bf3-708e0c4d5b5f.gif)
+  
   * Architecture 
     * Four class files - Ingredient, Recipe, User, and RecipeRepository
     * Four robust test files accompany each class file using Mocha & Chai Should / Expect
@@ -57,8 +61,11 @@ A Front-End Project by: [Ashton Huxtable](https://github.com/ahuxtable1327) & [B
   6. gifcap (https://gifcap.dev/)
 
 ## Contributors
+
   Ashton Huxtable https://github.com/ahuxtable1327
+  
   Beth Meeker https://github.com/Meekb
+  
   Turing School of Software & Design https://github.com/turingschool-examples
 
 ## Resources
