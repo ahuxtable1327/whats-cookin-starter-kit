@@ -59,6 +59,7 @@ A Front-End Project by: [Ashton Huxtable](https://github.com/ahuxtable1327) and 
   4. ESLint
   5. GitHub
   6. gifcap (https://gifcap.dev/)
+  7. Miro (https://miro.com/)
 
 ## Contributors
 
