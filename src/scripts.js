@@ -219,6 +219,7 @@ function displayFavorites() {
       <div class='recipe recipe-listing' id='${recipe.id}'>
         <h4 class>${recipe.name}</h4>
         <button class='btn delete-btn' id='${recipe.id}'>🗑 Delete Recipe</button>
+        <h3 class='fav-name'>${recipe.name}</h3>
         <img class='recipe-img' src='${recipe.image}' alt='${recipe.name}'>
       </div>
   `
