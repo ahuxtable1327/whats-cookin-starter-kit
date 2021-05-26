@@ -286,6 +286,7 @@ function displayAllRecipes() {
   hidePageArea(ingredientsArea);
   hidePageArea(lowerMain);
   hidePageArea(favoritesArea);
+  hidePageArea(recipeByCat);
   showPageArea(pageTitle);
   pageTitle.innerText = 'All Recipes'
   allRecipeArea.classList.remove('hidden');
