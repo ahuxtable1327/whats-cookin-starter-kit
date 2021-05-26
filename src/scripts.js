@@ -311,6 +311,7 @@ function navigateToHome() {
   hidePageArea(instructionsArea);
   hidePageArea(ingredientsArea);
   hidePageArea(recipeByCat);
+  hidePageArea(favoritesArea);
   showPageArea(lowerMain);
   showPageArea(randomRecArea);
   showPageArea(pageTitle);
