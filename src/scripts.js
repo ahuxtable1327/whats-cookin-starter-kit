@@ -147,7 +147,7 @@ function displayClickedRecipe(event) {
           <h2>${matchedData.name}</h2>
         </header>
         <button class='add-to-fav-btn' id='addToFavBtn'>➕ Add to favorites</button>
-        <img class='single-recipe' src="${matchedData.image}">
+        <img class='single-recipe' src="${matchedData.image}" alt="${matchedData.name}">
       </div>
       <h3>Estimated Total Recipe Cost: $${result.calculateRecipeCost()}</h3>
   `
@@ -219,7 +219,6 @@ function displayFavorites() {
       <div class='recipe recipe-listing' id='${recipe.id}'>
         <h4 class>${recipe.name}</h4>
         <button class='btn delete-btn' id='${recipe.id}'>🗑 Delete Recipe</button>
-        <h3 class='fav-name'>${recipe.name}</h3>
         <img class='recipe-img' src='${recipe.image}' alt='${recipe.name}'>
       </div>
   `
@@ -233,6 +232,7 @@ function displayCategoryRecipes(event) {
   hidePageArea(singleRecipeArea);
   hidePageArea(lowerMain);
   hidePageArea(randomRecArea);
+  hidePageArea(favoritesArea);
   showPageArea(recipeByCat);
   const category = event.target.id;
   repository.filterByTag(category);
@@ -262,6 +262,7 @@ function displayRecipes() {
   hidePageArea(lowerMain);
   hidePageArea(allRecipeArea);
   hidePageArea(singleRecipeArea);
+  hidePageArea(favoritesArea);
   showPageArea(recipeByCat);
   showPageArea(pageTitle);
   recipeByCat.innerHTML = ''

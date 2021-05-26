@@ -223,19 +223,19 @@ h4{
 
 .recipe-image {
   box-sizing: border-box;
-  position: relative;
+  position: absolute;
 }
 
 .delete-btn {
-  height: 5vh;
+  height: 4vh;
   width: 10vw;
   position: absolute;
-  margin-top: 20vw;
-  margin-left: 2vw;
+  margin-top: 2vw;
+  margin-left: 6vw;
   border-radius: 5px;
   background-color: none;
   opacity: 60%;
-  font-size: 18px;
+  font-size: 13px;
   font-weight: bolder;
 }
 
