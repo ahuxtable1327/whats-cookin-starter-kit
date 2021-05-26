@@ -12,7 +12,7 @@ A Front-End Project by: [Ashton Huxtable](https://github.com/ahuxtable1327) & [B
 6. [Instructions](#instructions)
 
 ## Overview
-  What's Cookin is a recipe application designed to allow users to search, and save recipes. 
+  What's Cookin is a recipe application designed to allow users to search and save recipes. 
 
 ## Instructions for cloning
   1. Clone this repo to your local machine
@@ -28,8 +28,6 @@ A Front-End Project by: [Ashton Huxtable](https://github.com/ahuxtable1327) & [B
      - View All Recipes button will navigate the user to view the full list of all recipes in the database
      - Search Bar allows the user to search the recipe database by recipe name, or by ingredient
      - Each time the main page loads, two random 'Popular Recipes' are loaded for the user 
-  
-   GIFS GO HERE
    
    - Recipe View
     - Click a recipe to view ingredients and preperation details
