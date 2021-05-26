@@ -1,22 +1,68 @@
-# What's Cookin'? Starter Kit 
+## Title: What's Cookin 
 
-The details of this project are outlined in the <a href="https://frontend.turing.io/projects/whats-cookin.html" target="\__blank">project spec</a>.
+A Front-End Project by: [Ashton Huxtable](https://github.com/ahuxtable1327) & [Beth Meeker](https://github.com/Meekb)
 
-## Set Up 
+## Index
 
-1. Within your group, decide on one person to have the project repository on their Github account. This person will *fork* this repository - on the top right corner of the page, click the fork button. 
-2. Both group members should then clone down the forked repository (make sure that everyone is added as a collaborator as well). Since you don't want your project to be named "whats-cookin-starter-kit", add an optional argument after the repo url when cloning. The command should look like this: `git clone [remote-address] [what you want to name the repo]`.
-3. Once you have cloned the repo, change into the directory and install the project dependencies. Run `npm install` or `npm i` to install project dependencies.
-4. Run `npm start` and visit `localhost:8080`
-5. Make sure both members of your team are collaborators on the forked repo.
+1. [Overview](#overview)
+2. [Functionality](#functionality)
+3. [Technologies](#technologies)
+4. [Contributors](#contributors)
+5. [Resources](#resources)
+6. [Instructions](#instructions)
 
-## Testing 
+## Overview
+  What's Cookin is a recipe application designed to allow users to search, and save recipes. 
 
-There is no boilerplate for testing in this starter-kit repo. You will need to set this up yourself. However, if you ran npm install, then the tooling you need to start testing is already installed (mocha and chai).
+## Instructions for cloning
+  1. Clone this repo to your local machine
+  2. cd into repo from the terminal
+  3. type `npm install` to install the dependencies
+  4. type `npm start` to start the host and view the page
 
-## Linting Your Code 
+## Functionality
 
-Run the command in your terminal npm run lint to run the linter on your JavaScript code. There will be errors and warnings right from the start in this starter kit, but that's ok - the linter is still running successfully.
+   - Main page navigation
+     - A random user is logged in when the page loads - and the application prominently greets the user by name
+     - Buttons filter recipes by four specific categories - Breakfast, Lunch, Dinner, and Sides
+     - View All Recipes button will navigate the user to view the full list of all recipes in the database
+     - Search Bar allows the user to search the recipe database by recipe name, or by ingredient
+     - Each time the main page loads, two random 'Popular Recipes' are loaded for the user 
+  
+   GIFS GO HERE
+   
+   - Recipe View
+    - Click a recipe to view ingredients and preperation details
+    - Total estimated cost of the recipe is displyed under the recipe image
+    - Ingredient amounts and estimated dollar cost
+    - Instructions for preperation
+   
+   - Favorites View
+    - A recipe is added to Favorites by clicking the Add To Favorites button displayed when viewing the recipe details
+    - Favorites section is named by user name, creating a unique and personalized experience
+   
+  * Architecture 
+    * Four class files - Ingredient, Recipe, User, and RecipeRepository
+    * Four robust test files accompany each class file using Mocha & Chai Should / Expect
+    * Network requests made using .fetch() to API endpoints 
 
-Your linter will look only at the JavaScript files you have within the src and the test directories.
+  * Future Upgrades
+    * Meal Plan view which allows the user to add and remove recipes from their weekly plan
+    * 3rd party library for dynamic navigation bar
 
+## Technologies
+  1. HTML, CSS, and JavaScript
+  2. Webpack
+  3. Mocha, Chai
+  4. ESLint
+  5. GitHub
+  6. gifcap (https://gifcap.dev/)
+
+## Contributors
+  Ashton Huxtable https://github.com/ahuxtable1327
+  Beth Meeker https://github.com/Meekb
+  Turing School of Software & Design https://github.com/turingschool-examples
+
+## Resources
+  1. [MDN Web Docs](https://developer.mozilla.org/en-US/)
+  2. [Turing What's Cookin](https://frontend.turing.edu/projects/whats-cookin.html)

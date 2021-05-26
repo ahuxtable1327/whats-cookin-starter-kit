@@ -13,7 +13,6 @@
 
 body {
   background-color: #d9d9d9;
-  /* height: 100vh; */
 }
 /* HEADER */
 header {
@@ -42,6 +41,7 @@ img:hover {
 }
 
 .nav-btn {
+  font-size: 1.2vw;
   height: 5vh;
   width: 10vw;
   margin-right: 2vw;
@@ -119,6 +119,7 @@ h2 {
   align-self: center;
   margin-bottom: 2vh;
   margin-top: 1vh;
+  text-transform: capitalize;
 }
 
 h3 {
@@ -128,8 +129,35 @@ h3 {
 }
 .random-recipes {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
+}
+
+.recipe-popular {
+  position: relative;
+  display: flex;;
+}
+
+.pop-recipe-img{
+  max-width: 500px;
+  height: auto;
+  width: 100%;
+}
+
+.pop-recipe{
+  position: absolute;
+  bottom: 3vh;
+  background-color: #51565c;
+  color: white;
+  font-size: 1.5vw;
+  height: 7vh;
+  width: 35vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 80%;
+  margin-left: 1vw;
 }
 
 /* ALL RECIPES */
@@ -141,8 +169,33 @@ h3 {
   font-size: 18px;
 }
 
+.recipe-img{
+  max-width: 300px;
+  height: auto;
+  width:120%;
+}
+
 .recipe-listing {
+  position: relative;
+  max-width: 400px;
+  height: auto;
+  width: 30%;
   margin-top: 3vw;
+}
+
+h4{
+  position: absolute;
+  bottom: 3vh;
+  background-color:  #51565c;
+  color: white;
+  font-size: 1vw;
+  height: 5vh;
+  width: 20vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 80%;
+  margin-left: 1vw;
 }
 
 /* RECIPES BY CAT */
@@ -245,6 +298,7 @@ h3 {
   flex-direction: column;
   margin: 0 2vw 1.5vw 2vw;
 }
+
 
 .hidden {
   display: none;

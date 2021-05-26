@@ -106,13 +106,13 @@ function loadRandomInfo(recipeData) {
   randomRecArea.innerHTML = '';
   randomRecArea.innerHTML +=
   `
-    <div class='recipe popular' id='${randomIndex1.id}'>
-      <h3>${randomIndex1.name}</h3>
-      <img class='recipe-img' src="${randomIndex1.image}" alt="${randomIndex1.name}">
+    <div class='recipe recipe-popular' id='${randomIndex1.id}'>
+      <h4 class='pop-recipe'>${randomIndex1.name}</h4>
+      <img class='pop-recipe-img' src="${randomIndex1.image}" alt="${randomIndex1.name}">
     </div>
-    <div class='recipe popular' id='${randomIndex2.id}'>
-      <h3>${randomIndex2.name}</h3>
-      <img class='recipe-img' src="${randomIndex2.image}" alt="${randomIndex2.name}">
+    <div class='recipe recipe-popular' id='${randomIndex2.id}'>
+      <h4 class='pop-recipe'>${randomIndex2.name}</h4>
+      <img class='pop-recipe-img' src="${randomIndex2.image}" alt="${randomIndex2.name}">
     </div>
   `
 }
@@ -217,6 +217,7 @@ function displayFavorites() {
   let filteredRecipes = favoriteRecipes.forEach(recipe => {
     favoritesArea.innerHTML += `
       <div class='recipe recipe-listing' id='${recipe.id}'>
+        <h4 class>${recipe.name}</h4>
         <button class='btn delete-btn' id='${recipe.id}'>🗑 Delete Recipe</button>
         <h3 class='fav-name'>${recipe.name}</h3>
         <img class='recipe-img' src='${recipe.image}' alt='${recipe.name}'>
@@ -270,7 +271,7 @@ function displayRecipes() {
   let filteredRecipes = recipeList.forEach(recipe => {
     recipeByCat.innerHTML += `
       <div class='recipe recipe-listing' id='${recipe.id}'>
-        <h3>${recipe.name}</h3>
+        <h4>${recipe.name}</h4>
         <img class='recipe-img' src='${recipe.image}' alt='${recipe.name}'>
       </div>
   `
@@ -291,7 +292,7 @@ function displayAllRecipes() {
     allRecipeArea.innerHTML +=
     `
       <div class="recipe recipe-listing" id="${recipe.id}">
-        <h3>${recipe.name}</h3>
+        <h4>${recipe.name}</h4>
         <img class='recipe-img' src="${recipe.image}" alt="${recipe.name}">
       </div>
     `
